@@ -1,0 +1,55 @@
+version: "2"
+
+services:
+    www:
+      build: ./dockerfiles/www/.
+      ports: 
+      - "8001:80"
+      volumes:
+      - ./www:/var/www/html/:rw
+      links:
+      - db
+      networks:
+        vpcbr:
+          ipv4_address: 10.5.0.6
+    db:
+      image: mysql:8.0
+      ports: 
+      - "3306:3306"
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL_DATABASE: remote
+        MYSQL_USER: ati
+        MYSQL_PASSWORD: 12345
+        MYSQL_ROOT_PASSWORD: 12345
+      volumes:
+      - ./dump:/docker-entrypoint-initdb.d:rw
+      - ./conf:/etc/mysql/conf.d:rw
+      - persistent:/var/lib/mysql
+      networks:
+        vpcbr:
+          ipv4_address: 10.5.0.5
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links: 
+        - db:db
+      ports:
+        - 8000:80
+      environment:
+        MYSQL_USER: ati
+        MYSQL_PASSWORD: 12345
+        MYSQL_ROOT_PASSWORD: 12345 
+      networks:
+        vpcbr:
+          ipv4_address: 10.5.0.4
+
+volumes:
+    persistent:
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
