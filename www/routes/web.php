@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/icons/devicetype', 'Admin\IconController@devicetype')->name('adminIconDeviceType');
         Route::get('/admin/icons/group', 'Admin\IconController@group')->name('adminIconGroup');
         Route::post('/admin/icons/device/upload', 'Admin\IconController@deviceTypeUpload')->name('adminIconDeviceTypeUpload');
+        Route::post('/admin/icons/device/uploadDefault', 'Admin\IconController@deviceTypeUploadDefault')->name('adminIconDeviceTypeUploadDefault');
 });
 
 // Login

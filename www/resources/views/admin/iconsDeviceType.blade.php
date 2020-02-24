@@ -40,12 +40,13 @@
                 @endif
                 <form action="{{route('adminIconDeviceTypeUpload')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="file" name="file" class="form-control">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-md btn-purple m-0 px-3" type="submit">Feltöltés</button>
                         </div>
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-deep-purple">Feltöltés</button>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="file" id="file">
+                            <label class="custom-file-label" for="file">{{$fileTpyes}}</label>
                         </div>
                     </div>
                 </form>
@@ -57,10 +58,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Alapértelmezett ikon</h5>
-                @if ($errors->any())
+                @if ($errors->iconDefault->any())
                     <div class="alert alert-danger">
                         <ul>
-                            @foreach ($errors->all() as $error)
+                            @foreach ($errors->iconDefault->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
@@ -71,14 +72,18 @@
                         {{ session()->get('success') }}
                     </div>
                 @endif
-                <form action="{{route('adminIconDeviceTypeUpload')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('adminIconDeviceTypeUploadDefault')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="file" name="file" class="form-control">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <img src="{{asset('assets/imgs/devicetype')}}/{{$defaultIcon->name}}" class="default-icon img-fluid  m-0 px-3">
                         </div>
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-deep-purple">Csere</button>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-md btn-purple m-0 px-3" type="submit">Csere</button>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="defaultIcon" id="defaultIcon">
+                            <label class="custom-file-label" for="defaultIcon">{{$fileTpyes}}</label>
                         </div>
                     </div>
                 </form>
