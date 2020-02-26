@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DevicesTypeIcon;
+use App\GroupsIcon;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\adminDefaultIconUpload;
+use App\Http\Requests\adminIconUpload;
 use Illuminate\Http\Request;
 use App\Site;
-use Validator;
 
 class IconController extends Controller
 {
     private $fileTpyes = "svg,jpg,jpeg,png";
+    private $fileMaxSize = "2048";
     private $niceNames = [
         'file' => 'fájl',
     ];
@@ -24,10 +27,21 @@ class IconController extends Controller
 
     function deviceType()
     {
-        $icons =  DevicesTypeIcon::all()->sortByDesc('updated_at');
-        $defaultIcon = DevicesTypeIcon::where('default', '=', '1')->first();
+        $icons =  DevicesTypeIcon::all()->sortByDesc('updated_at')->sortByDesc('default');
 
         return view('admin.iconsDeviceType', [
+            'site_name' => Site::get('site_name'),
+            'icons' =>  $icons,
+            'fileTpyes' => $this->fileTpyes
+        ]);
+    }
+
+    function group()
+    {
+        $icons =  GroupsIcon::all()->sortByDesc('updated_at');
+        $defaultIcon = GroupsIcon::where('default', '=', '1')->first();
+
+        return view('admin.iconsGroup', [
             'site_name' => Site::get('site_name'),
             'icons' =>  $icons,
             'fileTpyes' => $this->fileTpyes,
@@ -35,54 +49,27 @@ class IconController extends Controller
         ]);
     }
 
-    function deviceTypeUpload(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'file' => "required|mimes:{$this->fileTpyes}|max:2048"
-        ]);
-        $validator->setAttributeNames($this->niceNames);
+    function upload(adminIconUpload $request) {
+        $request->validated();
+        $type = $request->type;
 
-        if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-        } else {
-            $fileName = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('assets/imgs/devicetype'), $fileName);
-            $icon = new DevicesTypeIcon();
+        if($type == "GroupsIcon" || $type == "DevicesTypeIcon") {
+            $type = '\App\\' . $type;
+            $fileName = time() . '.' . $request->icon->extension();
+            $request->icon->move(public_path('assets/imgs/icons/'), $fileName);
+
+            if($request->input('defaultIcon')) {
+                $type::where('default', '=', '1')->update(['default' => 0]);
+            }
+
+            $icon = new $type();
             $icon->name = $fileName;
+            $icon->default = $request->input('defaultIcon') ? '1' : '0';
             $icon->save();
 
             return redirect()->back()->with('success', 'Sikeres fájl feltöltés!');
-        }
-    }
-
-    function deviceTypeUploadDefault(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'defaultIcon' => "required|mimes:{$this->fileTpyes}|max:2048"
-        ]);
-        $validator->setAttributeNames([
-            'defaultIcon' => 'fájl',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator, ' iconDefault')->withInput();
         } else {
-            $fileName = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('assets/imgs/devicetype'), $fileName);
-            $defaultIcon = DevicesTypeIcon::where('default', '=', '1')->first();
-            unlink(public_path("assets/imgs/devicetype/{$defaultIcon->name}"));
-            $defaultIcon->name =$fileName;
-            $defaultIcon->save();
-
-            return redirect()->back()->with('success', 'Az alapértelmezett ikon sikeresen frissítve!');
+             return redirect()->back()->withErrors(['Belső szerver hiba!'], 'icon');
         }
     }
-
-    function group()
-    {
-        return view('admin.iconsGroup', [
-            'site_name' => Site::get('site_name'),
-        ]);
-    }
-
 }

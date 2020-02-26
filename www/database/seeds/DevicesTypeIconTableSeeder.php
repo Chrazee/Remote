@@ -13,7 +13,7 @@ class DevicesTypeIconTableSeeder extends Seeder
     public function run()
     {
         DevicesTypeIcon::create([
-            'name' => 'default.svg',
+            'name' => 'default_devicetype.svg',
             'default' => '1',
         ]);
 

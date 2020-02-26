@@ -20,92 +20,24 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 mt-4">
+    <div class="col-md-12 mt-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Új ikon feltöltése</h5>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session()->has('success'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success') }}
-                    </div>
-                @endif
-                <form action="{{route('adminIconDeviceTypeUpload')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-md btn-purple m-0 px-3" type="submit">Feltöltés</button>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="file" id="file">
-                            <label class="custom-file-label" for="file">{{$fileTpyes}}</label>
-                        </div>
-                    </div>
-                </form>
+                @include('admin.includes.icon.uploadForm', [
+                    'type' => 'DevicesTypeIcon'
+                ])
             </div>
         </div>
     </div>
-
-    <div class="col-md-6 mt-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Alapértelmezett ikon</h5>
-                @if ($errors->iconDefault->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->iconDefault->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session()->has('success'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success') }}
-                    </div>
-                @endif
-                <form action="{{route('adminIconDeviceTypeUploadDefault')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <img src="{{asset('assets/imgs/devicetype')}}/{{$defaultIcon->name}}" class="default-icon img-fluid  m-0 px-3">
-                        </div>
-                        <div class="input-group-prepend">
-                            <button class="btn btn-md btn-purple m-0 px-3" type="submit">Csere</button>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="defaultIcon" id="defaultIcon">
-                            <label class="custom-file-label" for="defaultIcon">{{$fileTpyes}}</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <div class="col-12 mt-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Ikonok</h5>
                 <div class="row text-center text-lg-left">
-                    @foreach($icons as $icon)
-                        <div class="col-lg-3 col-md-4 col-6 icon-box">
-                            <img class="img-fluid img-thumbnail" src="{{asset('assets/imgs/devicetype')}}/{{$icon->name}}" alt="">
-                            <div class="icon-box-overlay-element">
-                                <div class="text">
-                                    <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                @include('admin.includes.icon.iconList', [
+                    'icons' => $icons,
+                ])
                 </div>
             </div>
         </div>

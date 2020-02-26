@@ -13,7 +13,7 @@ class GroupsIconTableSeeder extends Seeder
     public function run()
     {
         GroupsIcon::create([
-            'name' => 'default.svg',
+            'name' => 'default_group.svg',
             'default' => '1'
         ]);
 
