@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminIconDeviceType')}}">
+        <a href="{{route('admin.iconDeviceType')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-cog"></i>
@@ -32,7 +32,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminIconGroup')}}">
+        <a href="{{route('admin.iconGroup')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-map-marked"></i>

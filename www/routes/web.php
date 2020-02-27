@@ -40,10 +40,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/modules', 'Admin\ModuleController@show')->name('adminModules');
         // icons
         Route::get('/admin/icons', 'Admin\IconController@index')->name('adminIcons');
-        Route::get('/admin/icons/devicetype', 'Admin\IconController@devicetype')->name('adminIconDeviceType');
-        Route::get('/admin/icons/group', 'Admin\IconController@group')->name('adminIconGroup');
+        Route::get('/admin/icons/devicetype', 'Admin\IconController@devicetype')->name('admin.iconDeviceType');
+        Route::get('/admin/icons/group', 'Admin\IconController@group')->name('admin.iconGroup');
         Route::post('/admin/icons/upload/', 'Admin\IconController@upload')->name('admin.iconUpload');
-        Route::post('/admin/icons/delete/{id}')->name('adminIconDelete');
+        Route::post('/admin/icons/delete/', 'Admin\IconController@delete')->name('admin.iconDelete');
+        Route::post('/admin/icons/default/', 'Admin\IconController@default')->name('admin.iconDefault');
 });
 
 // Login

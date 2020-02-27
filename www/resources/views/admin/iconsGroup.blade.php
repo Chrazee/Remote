@@ -37,6 +37,7 @@
                     <div class="row text-center text-lg-left">
                         @include('admin.includes.icon.iconList', [
                             'icons' => $icons,
+                            'iconType' => 'group'
                         ])
                     </div>
                 </div>

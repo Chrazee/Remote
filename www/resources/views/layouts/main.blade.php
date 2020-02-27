@@ -75,10 +75,7 @@
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });
-
-            $('.carousel').carousel({
-                touch: true
-            });
         </script>
+        <script src="{{asset('assets/site/js/common.js')}}"></script>
     </body>
 </html>

@@ -35,19 +35,19 @@
         <div class="container-fluid" id="content">
             @yield('content')
         </div>
-        
+
         <script src="{{asset('assets/mdbootstrap/js/popper.min.js')}}"></script>
         <script src="{{asset('assets/mdbootstrap/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('assets/mdbootstrap/js/mdb.min.js')}}"></script>
-        <script> 
+        <script>
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });
-            
+
             $('.carousel').carousel({
                 touch: true
             });
         </script>
+        <script src="{{asset('assets/site/js/common.js')}}"></script>
     </body>
 </html>
-            

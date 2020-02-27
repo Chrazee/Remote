@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DevicesTypeIcon;
+use App\Site;
+use App\Group;
 use App\GroupsIcon;
+use App\DeviceType;
+use App\DevicesTypeIcon;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\adminDefaultIconUpload;
 use App\Http\Requests\adminIconUpload;
 use Illuminate\Http\Request;
-use App\Site;
 
 class IconController extends Controller
 {
     private $fileTpyes = "svg,jpg,jpeg,png";
-    private $fileMaxSize = "2048";
-    private $niceNames = [
-        'file' => 'fájl',
-    ];
 
     function index()
     {
@@ -39,13 +36,11 @@ class IconController extends Controller
     function group()
     {
         $icons =  GroupsIcon::all()->sortByDesc('updated_at');
-        $defaultIcon = GroupsIcon::where('default', '=', '1')->first();
 
         return view('admin.iconsGroup', [
             'site_name' => Site::get('site_name'),
             'icons' =>  $icons,
-            'fileTpyes' => $this->fileTpyes,
-            'defaultIcon' => $defaultIcon,
+            'fileTpyes' => $this->fileTpyes
         ]);
     }
 
@@ -70,6 +65,47 @@ class IconController extends Controller
             return redirect()->back()->with('success', 'Sikeres fájl feltöltés!');
         } else {
              return redirect()->back()->withErrors(['Belső szerver hiba!'], 'icon');
+        }
+    }
+
+    function delete(Request $request) {
+        if($request->get('type') == "group") {
+            $icon = GroupsIcon::find($request->get('id'));
+            $defaultIcon = GroupsIcon::where('default', '=', '1')->first();
+
+            Group::where('icon_id', '=', $request->get('id'))->update(['icon_id' => $defaultIcon->id]);
+            GroupsIcon::destroy($request->get('id'));
+            unlink(public_path('assets/imgs/icons/' . $icon->name));
+
+            return response()->json(['success' => ['Az ikon sikeresen törölve!']]);
+        } else if ($request->get('type') == "devicetype") {
+            $icon = DevicesTypeIcon::find($request->get('id'));
+            $defaultIcon = DevicesTypeIcon::where('default', '=', '1')->first();
+
+            DeviceType::where('icon_id', '=', $request->get('id'))->update(['icon_id' => $defaultIcon->id]);
+            DevicesTypeIcon::destroy($request->get('id'));
+            unlink(public_path('assets/imgs/icons/' . $icon->name));
+
+            return response()->json(['success' => ['Az ikon sikeresen törölve!']]);
+        } else {
+            return response()->json(['error' => ['Belső szerver hiba!']]);
+        }
+    }
+
+    function default(Request $request) {
+        if($request->get('type') == "group") {
+            GroupsIcon::where('default', '=', '1')->update(['default' => '0']);
+            GroupsIcon::where('id', '=', $request->get('id'))->update(['default' => '1']);
+
+            return response()->json(['success' => ['A beállítás sikeres volt!']]);
+        } else if ($request->get('type') == "devicetype") {
+            DevicesTypeIcon::where('default', '=', '1')->update(['default' => '0']);
+            DevicesTypeIcon::where('id', '=', $request->get('id'))->update(['default' => '1']);
+
+            return response()->json(['success' => ['A beállítás sikeres volt!']]);
+
+        } else {
+            return response()->json(['error' => ['Belső szerver hiba!']]);
         }
     }
 }
