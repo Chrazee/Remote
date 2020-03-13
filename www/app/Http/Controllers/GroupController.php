@@ -36,8 +36,6 @@ class GroupController extends Controller
                 $device->devices = Device::where('type_id', '=', $device->deviceTypeId)->limit(3)->get();
             }
 
-            //dd($devices);
-
             $data = [
                 'validGroup' => true,
                 'currentGroup' => $group,

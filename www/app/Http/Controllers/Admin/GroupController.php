@@ -32,12 +32,10 @@ class GroupController extends Controller
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'parent_id' => $request->input('groupId'),
-            'icon_id' => $request->input('iconId'),
+            'icon_id' => ($request->input('iconId') == "-1") ? GroupsIcon::where('default', '=', '1')->first()->id : $request->input('iconId')
         ]);
 
-        $res = array('success' => array('SIkeres adatmódosítás!'));
-
-        return response()->json($res);
+        return response()->json(['success' => ['SIkeres adatmódosítás!']]);
     }
 
 

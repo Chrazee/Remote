@@ -9,7 +9,7 @@ class Group extends Model
 {
     protected $table = "groups";
     protected $primaryKey = "id";
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'user_id', 'icon_id'];
 
     public static function exists($id) {
         $id = self::
