@@ -1,17 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Homepage
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/', 'MainController@index');
 
@@ -33,7 +21,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/admin/group', 'Admin\GroupController@show')->name('adminGroup');
         Route::get('/admin/group/edit', function () { return redirect('/admin/group'); });
         Route::get('/admin/group/edit/{id}', 'Admin\GroupController@edit');
-        Route::post('/admin/group/update', 'Admin\GroupController@update');
+        Route::post('/admin/group/create', 'Admin\GroupController@create')->name('admin.groupCreate');
+        Route::post('/admin/group/update', 'Admin\GroupController@update')->name('admin.groupUpdate');
+        Route::post('/admin/group/delete', 'Admin\GroupController@delete')->name('admin.groupDelete');
+        Route::post('/admin/group/get', 'Admin\GroupController@get')->name('admin.groupGet');
         // devices
         Route::get('/admin/devices', 'Admin\DeviceController@show')->name('adminDevices');
         // modules

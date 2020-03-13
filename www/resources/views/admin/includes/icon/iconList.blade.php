@@ -80,7 +80,7 @@
 
     $(iconDeleteModal).on('hidden.bs.modal', function () {
         clearErrorBag(iconDeleteErrorBag);
-        setBtnText(iconDeleteBtn, btnText['default']);
+        setBtnText(iconDeleteBtn, iconDeleteBtnText['default']);
     });
 
     $(iconDeleteBtn).click(function() {
@@ -97,7 +97,7 @@
                 clearErrorBag(iconDeleteErrorBag);
             },
             success:function(response) {
-                setBtnDisabled(iconDeleteBtn, true);
+                setBtnDisabled(iconDeleteBtn, false);
                 if($.isEmptyObject(response.error)) {
                     setBtnText(iconDeleteBtn, iconDeleteBtnText['default']);
                     printErrorBag(iconDeleteErrorBag, response.success, 'success');
@@ -148,7 +148,6 @@
     var iconDefaultErrorBag = "#iconDefaulterrorBag";
 
     $(iconDefaultModal).on('show.bs.modal', function(e) {
-        console.log($(e.relatedTarget).data('icon-id-default'));
         $(e.currentTarget).find('#iconDefaultId').html($(e.relatedTarget).data('icon-id-default'));
         $.ajax({
             type: 'POST',

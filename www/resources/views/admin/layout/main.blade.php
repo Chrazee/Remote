@@ -10,10 +10,10 @@
         <link rel="stylesheet" href="{{asset('assets/mdbootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/mdbootstrap/css/mdb.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/imagepicker/css/imagepicker.css')}}">
         <link rel="stylesheet" href="{{asset('assets/site/css/site.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/site/css/admin.css')}}">
         <script src="{{asset('assets/mdbootstrap/js/jquery-3.4.1.min.js')}}"></script>
-        <script src="{{asset('assets/jqueryvalidation/js/validate-1.19.1.min.js')}}"></script>
+        <script src="{{asset('assets/imagepicker/js/imagepicker.min.js')}}"></script>
     </head>
     <body>
         <nav class="navbar justify-content-between flex-nowrap flex-row navbar-dark bg-dark">
@@ -43,11 +43,8 @@
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });
-
-            $('.carousel').carousel({
-                touch: true
-            });
         </script>
+
         <script src="{{asset('assets/site/js/common.js')}}"></script>
     </body>
 </html>

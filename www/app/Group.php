@@ -31,11 +31,15 @@ class Group extends Model
         return $this->belongsTo('App\GroupsIcon');
     }
 
-    public function childs() {
-        return $this->hasMany($this,'parent_id','id');
-    }
-
     public function type() {
         return $this->belongsTo('App\DeviceType');
+    }
+
+    public function parent() {
+        return $this->belongsTo($this,'parent_id','id');
+    }
+
+    public function childs() {
+        return $this->hasMany($this,'parent_id','id');
     }
 }

@@ -42,3 +42,13 @@ function printErrorBag(element, array, bagAlert = null) {
         setErrorBagAlert(element, bagAlert);
     }
 }
+
+function setIconsToDefault(inElement) {
+    $(inElement + ' .image-picker').val('-1');
+    $(inElement + ' .collapse-icons').collapse('hide');
+    $(inElement + ' .thumbnails.image_picker_selector li').each(function() {
+        if($(this).children("div").hasClass('selected')) {
+            $(this).children("div").removeClass('selected');
+        }
+    });
+}

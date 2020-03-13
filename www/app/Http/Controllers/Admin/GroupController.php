@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Group;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Site;
-use Validator;
+use App\Group;
+use App\GroupsIcon;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\adminGroupCreate;
+use App\Http\Requests\adminGroupUpdate;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -14,53 +18,76 @@ class GroupController extends Controller
     {
         return view('admin.group', [
             'site_name' => Site::get('site_name'),
-            'groups' => Group::all(),
+            'groups' => Group::with(['parent', 'icon'])->get(),
             'parentGroups' => Group::where('parent_id', '=', '-1')->get(),
+            'icons' => GroupsIcon::where('default', '=', '0')->get(),
         ]);
     }
 
-    function update(Request $request)
+    function update(adminGroupUpdate $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
+        $request->validated();
+
+        Group::find($request->input('id'))->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'parent_id' => $request->input('groupId'),
+            'icon_id' => $request->input('iconId'),
         ]);
-        $niceNames = array(
-            'name' => 'Név',
-        );
-        $validator->setAttributeNames($niceNames);
 
+        $res = array('success' => array('SIkeres adatmódosítás!'));
 
-        if ($validator->passes()) {
-
-            $update = Group::find($request->get('id'))->update([
-                'name' => $request->get('name'),
-                'description' => $request->get('description'),
-            ]);
-
-            $res = array('success' => array('SIkeres adatmódosítás!'));
-
-            return response()->json($res);
-        }
-
-        return response()->json(['error' => $validator->errors()->all()]);
+        return response()->json($res);
     }
 
 
-    function create(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-        ]);
+    function create(adminGroupCreate $request) {
+        $request->validated();
 
-        $validator->setAttributeNames([
-            'name' => 'Név',
-        ]);
-
-        if ($validator->passes()) {
-            $create = Group::create($request->all());
-            $res = array('success' => array('A csoport sikeresen létrehozva!'));
-            return response()->json($res);
+        $iconId = $request->input('iconId');
+        if($iconId == "-1") {
+            $iconId = GroupsIcon::where('default', '=', '1')->first()->id;
         }
 
-        return response()->json(['error' => $validator->errors()->all()]);
+        $group = new Group();
+        $group->parent_id = $request->input('groupId');
+        $group->user_id = Auth::user()->id;
+        $group->icon_id = $iconId;
+        $group->name = $request->input('name');
+        $group->description = $request->input('description');
+        $group->save();
+
+        return response()->json(['success' => ['A csoport sikeresen létrehozva!']]);
+    }
+
+    function get(Request $request) {
+        $group = Group::with(['parent', 'icon'])->find($request->input('id'));
+        $defaultIcon = GroupsIcon::where('default', '=', '1')->first();
+
+        if($group) {
+            return response()->json(['success' => [
+                'group' => $group,
+                'defaultIcon' => ($group->icon->id == $defaultIcon->id) ? true : false
+            ]]);
+        }
+        return response()->json(['error' => ['Nem sikerült betölteni az adatokat!']]);
+    }
+
+    function delete(Request $request) {
+        $group = Group::find($request->input('id'));
+
+        if($group) {
+            if($group->childs->count()) {
+                return response()->json(['error' => ['A csoport nem törölhető, amíg tartalmaz alcsoportokat!']]);
+            }
+            if($group->devices->count()) {
+                return response()->json(['error' => ['A csoport nem törölhető, amíg tartalmaz eszközöket!']]);
+            }
+
+            $group->delete();
+            return response()->json(['success' => ['A csoport sikeresen törölve!']]);
+        }
+
+        return response()->json(['error' => ['A csoport nem létezik!']]);
     }
 }
