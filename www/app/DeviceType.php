@@ -13,6 +13,6 @@ class DeviceType extends Model
     }
 
     public function icon() {
-        return $this->hasOne('App\DevicesTypeIcon');
+        return $this->belongsTo('App\DevicesTypeIcon');
     }
 }

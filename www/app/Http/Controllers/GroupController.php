@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\DeviceType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
-use DB;
 use App\Group as Group;
 use App\Device as Device;
 
@@ -14,41 +14,36 @@ class GroupController extends Controller
 {
     function showGroup($id)
     {
-        /*
-           var_dump(Group::with(['devices', 'type'])
-            ->where('id', '=',$id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->get());
-         */
+        /*$deviceTypes = DeviceType::with(['icon', 'devices', 'devices.group'])->where('devices.group.group_id', "=", '1')->get();
+        $deviceTypes = Group::with(['types'])->find(1);
+        dd($deviceTypes);
+        */
 
-        var_dump(DeviceType::with(['devices'])
-            ->get());
-
-        $types = DeviceType::with(['devices', 'devices.group'])
-            ->where('devices.group.id', '=',$id)
-            ->where('devices.group.user_id', '=', Auth::user()->id)
-            ->get();
-
-
-        //var_dump($types);
-
-        $group = Group::with(['devices', 'devices.type'])
-            ->where('id', '=',$id)
-            ->where('user_id', '=', Auth::user()->id)
-            ->get();
-
-        //var_dump($group);
-
-        //exit();
+        $group = Group::find($id);
 
         if($group) {
+            $devices = DB::table('devices')
+                ->join('devices_type', 'devices_type.id', '=', 'devices.type_id')
+                ->join('devices_type_icon', 'devices_type_icon.id', '=', 'devices_type.icon_id')
+                ->select(DB::raw('devices.type_id AS deviceTypeId,devices_type.display_name AS deviceTypeName, devices_type_icon.name AS iconName'
+                ))
+                ->where('group_id', $group->id)
+                ->groupBy('devices.type_id')
+                ->groupBy('devices_type.display_name')
+                ->get();
+
+            foreach ($devices as $device) {
+                $device->devices = Device::where('type_id', '=', $device->deviceTypeId)->limit(3)->get();
+            }
+
+            //dd($devices);
+
             $data = [
                 'validGroup' => true,
                 'currentGroup' => $group,
-                'devices' => $group->devices,
+                'devices' => $devices,
                 'subGroups' => $group->childs
             ];
-            //var_dump($group->devices);
         } else {
             $data = [
                 'validGroup' => false,

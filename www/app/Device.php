@@ -54,6 +54,7 @@ class Device extends Model
     }
 
     public function group() {
-        return $this->hasMany('App\Group', 'group_id', 'id');
+        return $this->belongsTo('App\Group');
+        /*return $this->hasMany('App\Group', 'group_id', 'id');*/
     }
 }

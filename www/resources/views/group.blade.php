@@ -31,32 +31,23 @@
                             <div class="col-6 col-sm-4 col-md-3 box">
                                 <div class="row">
                                     <div class="col-12 mb-2">
-                                        <a href="{{Request::url()}}/type/{{$device->type}}">
+                                        <a href="{{Request::url()}}/type/{{$device->deviceTypeId}}">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    @if (empty($device->icon))
-                                                        <img src="{{asset('assets/imgs/devicetype')}}/not_set.svg" class="img-fluid">
-                                                    @else
-                                                        <img src="{{asset('assets/imgs/devicetype')}}/{{$device->icon}}" class="img-fluid">
-                                                    @endif
-                                                    <h5>{{$device->display_name}}</h5>
+                                                    <img src="{{asset('assets/imgs/icons')}}/{{$device->iconName}}" class="img-fluid">
+                                                    <h5>{{$device->deviceTypeName}}</h5>
                                                     <p class="text-muted">
-                                                        @if (empty($device->devices))
-                                                            0
-                                                        @else
-                                                            {{$device->devices}}
-                                                        @endif
-                                                        eszköz
+                                                        {{$device->devices->count()}} eszköz
                                                     </p>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
-                                    @if(true))
+                                    @if($device->devices->count())
                                         <div class="col-12">
-                                            @foreach($group->devices  as $d)
+                                            @foreach($device->devices  as $d)
                                                 <a href="/device/{{$d->id}}">
-                                                    <div class="card">
+                                                    <div class="card box-devices">
                                                         <div class="card-body">
                                                             {{$d->display_name}}
                                                         </div>

@@ -32,7 +32,7 @@ class Group extends Model
     }
 
     public function type() {
-        return $this->belongsTo('App\DeviceType');
+        //return $this->belongsTo('App\DeviceType');
     }
 
     public function parent() {
@@ -41,5 +41,9 @@ class Group extends Model
 
     public function childs() {
         return $this->hasMany($this,'parent_id','id');
+    }
+
+    public function types() {
+        return $this->hasManyThrough('App\DeviceType', 'App\Device', 'group_id', 'type_id');
     }
 }
