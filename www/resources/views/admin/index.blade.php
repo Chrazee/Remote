@@ -5,21 +5,6 @@
 
 @section('content')
 <div class="row">
-    <div class="col-12">
-        <div class="card rounded teaser">
-            <div class="card-body">
-                <div class="row h-100">
-                    <div class="col-6 align-self-center teaser-left">
-                        <h1><i class="fa fa-user-shield"></i></h1>
-                    </div>
-                    <div class="col-6 align-self-center teaser-right">
-                        <h4><strong>@yield('id')</strong></h4>
-                        <h6>@yield('title')</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-6 box">
         <a href="{{route('adminGeneral')}}">
             <div class="card text-center">
@@ -54,6 +39,17 @@
         </a>
     </div>
     <div class="col-md-6 box">
+        <a href="{{route('adminIcons')}}">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fa fa-microchip"></i>
+                    <h5>Eszköz típusok</h5>
+                    <p class="text-muted">Eszköz típus beállítások</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 box">
         <a href="{{route('adminModules')}}">
             <div class="card text-center">
                 <div class="card-body">
@@ -64,7 +60,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-12 box">
+    <div class="col-md-6 box">
         <a href="{{route('adminIcons')}}">
             <div class="card text-center">
                 <div class="card-body">
