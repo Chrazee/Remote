@@ -2,11 +2,15 @@ version: "2"
 
 services:
     www:
-      build: ./dockerfiles/www/.
+      build:
+        context: ./build/www/
+        args:
+        - APACHE_UID=1000
+        - APACHE_GID=1000
       ports: 
-      - "8001:80"
+      - "62080:80"
       volumes:
-      - ./www:/var/www/html/:rw
+      - ./www:/var/www/html/:z
       links:
       - db
       networks:
@@ -15,11 +19,11 @@ services:
     db:
       image: mysql:8.0
       ports: 
-      - "3306:3306"
+      - "62081:3306"
       command: --default-authentication-plugin=mysql_native_password
       environment:
         MYSQL_DATABASE: remote
-        MYSQL_USER: ati
+        MYSQL_USER: remote
         MYSQL_PASSWORD: 12345
         MYSQL_ROOT_PASSWORD: 12345
       volumes:
@@ -34,9 +38,9 @@ services:
       links: 
         - db:db
       ports:
-        - 8000:80
+        - 62082:80
       environment:
-        MYSQL_USER: ati
+        MYSQL_USER: remote
         MYSQL_PASSWORD: 12345
         MYSQL_ROOT_PASSWORD: 12345 
       networks:
@@ -53,3 +57,4 @@ networks:
      config:
        - subnet: 10.5.0.0/16
          gateway: 10.5.0.1
+
