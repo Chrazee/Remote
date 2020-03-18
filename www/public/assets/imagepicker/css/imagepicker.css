@@ -4,7 +4,7 @@ ul.thumbnails.image_picker_selector {
 	 list-style-position: outside;
 	 list-style-type: none;
 	 padding: 0px;
-	 margin: 0px;
+	 margin: 5px 0px 0px 0px;
 }
  ul.thumbnails.image_picker_selector ul {
 	 overflow: auto;
@@ -27,12 +27,13 @@ ul.thumbnails.image_picker_selector {
 	 -webkit-user-select: none;
 	 -moz-user-select: none;
 	 -ms-user-select: none;
+     transition: 0.1s;
 }
  ul.thumbnails.image_picker_selector li .thumbnail img {
 	 -webkit-user-drag: none;
 }
  ul.thumbnails.image_picker_selector li .thumbnail.selected {
-     border: 2px solid #00e25b;
+     border: 2px solid #553895;
 }
 
 .image_picker_image {

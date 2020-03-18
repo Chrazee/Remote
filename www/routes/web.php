@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
         // devices
         Route::get('/admin/devices', 'Admin\DeviceController@show')->name('adminDevices');
         // modules
-        Route::get('/admin/modules', 'Admin\ModuleController@show')->name('adminModules');
+        Route::get('/admin/modules', 'Admin\ModuleController@show')->name('admin.modules');
         // icons
         Route::get('/admin/icons', 'Admin\IconController@index')->name('adminIcons');
         Route::get('/admin/icons/devicetype', 'Admin\IconController@devicetype')->name('admin.iconDeviceType');
@@ -36,6 +36,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/icons/upload/', 'Admin\IconController@upload')->name('admin.iconUpload');
         Route::post('/admin/icons/delete/', 'Admin\IconController@delete')->name('admin.iconDelete');
         Route::post('/admin/icons/default/', 'Admin\IconController@default')->name('admin.iconDefault');
+        // deviceType
+        Route::get('/admin/devicetype', 'Admin\DeviceTypeController@index')->name('admin.deviceType');
+        Route::post('/admin/devicetype/create', 'Admin\DeviceTypeController@create')->name('admin.deviceType.create');
 });
 
 // Login

@@ -13,7 +13,7 @@
                         <h1><i class="fa fa-home"></i></h1>
                     </div>
                     <div class="col-6 align-self-center teaser-right">
-                        <h4><strong>Szobák</strong></h4>
+                        <h4><strong>Csoportok</strong></h4>
                         <h6>{{$deviceCount}} eszköz</h6>
                     </div>
                 </div>

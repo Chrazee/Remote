@@ -14,7 +14,7 @@
         @else
             @if (count($subGroups) > 0)
                 <div class="col-12">
-                    <h4>Alszobák</h4>
+                    <h4>Alcsoportok</h4>
                     <div class="row">
                         @include('includes.group.card', ['groups' => $subGroups])
                     </div>

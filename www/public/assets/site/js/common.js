@@ -1,3 +1,8 @@
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+/* button */
 function setBtnDisabled(element, boolean) {
     if(boolean) {
         $(element).attr("disabled", "disabled");
@@ -19,6 +24,7 @@ function setBtn(element, disabled = null, text = null) {
     }
 }
 
+/* error bag */
 function setErrorBagAlert(element, alertType) {
     $(element).removeClass (function (index, className) {
         return (className.match (/(^|\s)alert-\S+/g) || []).join(' ');
@@ -43,6 +49,7 @@ function printErrorBag(element, array, bagAlert = null) {
     }
 }
 
+/* icon selector */
 function setIconsToDefault(inElement) {
     $(inElement + ' .image-picker').val('-1');
     $(inElement + ' .collapse-icons').collapse('hide');
@@ -51,4 +58,32 @@ function setIconsToDefault(inElement) {
             $(this).children("div").removeClass('selected');
         }
     });
+}
+
+
+function iconSelector(inElement) {
+    // set defaults
+    $(inElement + " .icon-selector .collapse-default").collapse('show');
+
+    // radios click
+    $(inElement + " .icon-selector .default").click(function() {
+        $('.icon-selector .collapse-default').collapse('show');
+        $('.icon-selector .collapse-custom').collapse('hide');
+    });
+    $(inElement + " .icon-selector .custom").click(function() {
+        $('.icon-selector .collapse-default').collapse('hide');
+        $('.icon-selector .collapse-custom').collapse('show');
+    });
+
+    // initialize imagepicker(s)
+    $(inElement + " .icon-selector .image-picker").imagepicker();
+}
+
+function iconSelectorValue(inElement) {
+    var value = $(inElement + " .icon-selector .collapse-default select").val();
+
+    if ($(inElement + " .icon-selector .custom").is(':checked')) {
+        value = $(inElement + " .icon-selector .collapse-custom select").val();
+    }
+    return value;
 }

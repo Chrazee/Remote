@@ -39,7 +39,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminIcons')}}">
+        <a href="{{route('admin.deviceType')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-microchip"></i>
@@ -50,7 +50,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminModules')}}">
+        <a href="">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-cube"></i>

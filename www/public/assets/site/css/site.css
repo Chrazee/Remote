@@ -101,6 +101,12 @@ a:hover, a:active, a:focus {
     margin: 0 auto;
 }
 
+/* box devices */
+.box-devices {
+    border-radius: 0px;
+    border-bottom: 1px solid  #ececec;
+}
+
 /* icon-box */
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_image_overlay_opacity */
 .icon-box {
@@ -379,4 +385,52 @@ a:hover, a:active, a:focus {
 }
 .switch + .switch {
   margin-left: 1rem;
+}
+
+/* table image */
+.img-table img {
+    width: 25px;
+}
+
+/* table select  */
+.tr-selected {
+    background-color: rgba(52,181,229,.3)!important;
+    transition: all .2s ease-in;
+}
+
+/* view & cascade - MDBS component implementation*/
+.view {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+}
+
+.card.card-cascade.narrower .view.view-cascade {
+    margin-top: -1.25rem;
+    margin-right: 4%;
+    margin-left: 4%;
+}
+
+.card.card-cascade .view.view-cascade {
+    border-radius: .25rem;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+}
+
+.card.card-cascade .view.view-cascade.gradient-card-header {
+    padding: 1.6rem 1rem;
+    color: #fff;
+    text-align: center;
+}
+
+/* rounded button - MDBS component implementation */
+.btn-rounded {
+    border-radius: 10em;
+}
+
+/* sticky element */
+.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
 }
