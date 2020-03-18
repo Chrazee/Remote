@@ -26,7 +26,7 @@ class DeviceTypeController extends Controller
 
     function create(Create $request) {
         $request->validated();
-
-        dd($request->all());
+        DeviceType::create($request->all());
+        return response()->json(['success' => ['Az eszköz-típus sikeresen létrehozva!']]);
     }
 }

@@ -49,6 +49,25 @@ function printErrorBag(element, array, bagAlert = null) {
     }
 }
 
+/* modal preloader */
+function showModalPreloader(inElement) {
+
+    $(inElement + " .checkout-preloader-container").removeClass('d-none');
+}
+
+function hideModalPreloader(inElement) {
+    $(inElement + " .checkout-preloader-container").addClass('d-none');
+}
+
+/* submit btn */
+function submitBtnDisabled(inElement, boolean) {
+    if(boolean) {
+        $(inElement + " .submit-btn").attr("disabled", "disabled");
+    } else {
+        $(inElement + " .submit-btn").removeAttr("disabled");
+    }
+}
+
 /* icon selector */
 function setIconsToDefault(inElement) {
     $(inElement + ' .image-picker').val('-1');

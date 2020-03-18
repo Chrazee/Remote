@@ -1,6 +1,23 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div class="modal-preloader">
+                <div class="checkout-preloader-container d-none">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Új eszköz-típus hozzáadása</h4>
                 <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
@@ -51,18 +68,14 @@
         var modal = "#modalCreate";
         var errorBag = modal + " .error-bag";
         var btn = modal + " .submit-btn";
-        var btnText = {
-            'default': 'Létrehozás <i class="fas fa-check ml-1"></i>',
-            'beforeSend': 'Folyamatban <i class="fas fa-circle-notch fa-spin ml-1"></i>',
-            'onError': 'Újrapróbálkozás <i class="fas fa-redo ml-1"></i>',
-        };
+        var preloader =  modal + " .checkout-preloader-container";
 
         // modal
         $('.actions .create').click(function() {
             $(modal).modal("show");
         });
         $(modal).on('shown.bs.modal', function () {
-            $(modal + " input[name='name']").focus();
+            $(modal + " input:visible:first").focus();
         });
 
         // initialize icon selector
@@ -80,28 +93,31 @@
                     icon_id: iconSelectorValue(modal),
                 },
                 beforeSend: function() {
-                    setBtn(btn, true, btnText['beforeSend']);
+                    setBtnDisabled(btn);
                     clearErrorBag(errorBag);
+                    showModalPreloader(modal);
                 },
                 success:function(response) {
-                    if($.isEmptyObject(response.error)) {
-                        printErrorBag(errorBag, response.success, 'success');
-                        setTimeout(function() {
-                            setBtn(btn, true, btnText['default']);
-                            //location.reload();
-                        }, 1500);
-                    } else {
-                        setBtn(btn, false, btnText['onError']);
-                        printErrorBag(errorBag, response.error, 'danger');
-                    }
+                    setTimeout(function() {
+                        hideModalPreloader(modal);
+                        setBtnDisabled(btn, false);
+
+                        if($.isEmptyObject(response.error)) {
+                            printErrorBag(errorBag, response.success, 'success');
+                            setTimeout(function() {
+                                //location.reload();
+                            }, 1500);
+                        } else {
+                            printErrorBag(errorBag, response.error, 'danger');
+                        }
+                    }, 500);
                 },
                 error: function(xhr, status, error) {
-                    setBtn(btn, false, btnText['onError']);
+                    hideModalPreloader(modal);
+                    setBtnDisabled(btn, false);
                     printErrorBag(errorBag, {error: xhr.status + ': ' + xhr.statusText}, 'danger');
                 }
             });
         });
-
-
     });
 </script>

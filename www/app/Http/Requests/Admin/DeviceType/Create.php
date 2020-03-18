@@ -16,7 +16,7 @@ class Create extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required|max:255|string',
+            'name' => 'required|max:255|string|unique:devices_type,name',
             'display_name' => 'required|max:255',
             'icon_id' => 'required|int'
         ];
@@ -25,7 +25,7 @@ class Create extends FormRequest
     public function attributes()
     {
         return [
-            'type' => 'Típus',
+            'name' => 'Típus',
             'display_name' => 'Megjelenített név',
             'icon_id' => 'Ikon'
         ];
