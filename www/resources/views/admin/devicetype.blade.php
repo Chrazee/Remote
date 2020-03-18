@@ -63,6 +63,7 @@
             $(this).addClass('tr-selected');
 
             $('.actions .delete').attr('data-id', id);
+            $('.actions .delete').attr('data-display_name', $(this).attr('data-display_name'));
             $('.actions .edit').attr('data-id', id);
             $('.actions .edit').attr('data-name', $(this).attr('data-name'));
             $('.actions .edit').attr('data-display_name', $(this).attr('data-display_name'));

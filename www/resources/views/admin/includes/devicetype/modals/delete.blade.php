@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="modal-header">
-                <p class="heading">Eszköz típus törlése</p>
+                <p class="heading"><span class="display_name"></span> törlése</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="white-text">×</span>
                 </button>
@@ -56,11 +56,9 @@
 
         // modal
         $('.actions .delete').click(function() {
-            var id = $(this).attr('data-id');
-            if(id !== '-1' || id !== '') {
-                $(modal).modal("show");
-                $(modal + " .id").html(id);
-            }
+            $(modal).modal("show");
+            $(modal + " .id").html($(this).attr('data-id'));
+            $(modal + " .display_name").html( $(this).attr('data-display_name'));
         });
         $(modal).on('hidden.bs.modal', function () {
             clearErrorBag(errorBag);
