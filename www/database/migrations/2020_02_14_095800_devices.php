@@ -21,7 +21,7 @@ class Devices extends Migration
             $table->integer('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('type_id')->index();
-            $table->foreign('type_id')->references('id')->on('devices_type');
+            $table->foreign('type_id')->references('id')->on('devices_type')->onDelete('restrict');;
             $table->tinyInteger('status');
             $table->timestamps();
         });

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DevicesTypeIcon;
-use App\DeviceType;
-use App\Http\Requests\Admin\DeviceType\Create;
 use App\Site;
+use App\DeviceType;
+use App\DevicesTypeIcon;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DeviceType\Create;
+use App\Http\Requests\Admin\DeviceType\Delete;
+use App\Http\Requests\Admin\DeviceType\Update;
 
 class DeviceTypeController extends Controller
 {
@@ -28,5 +30,17 @@ class DeviceTypeController extends Controller
         $request->validated();
         DeviceType::create($request->all());
         return response()->json(['success' => ['Az eszköz-típus sikeresen létrehozva!']]);
+    }
+
+    function delete(Delete $request) {
+        $request->validated();
+        DeviceType::find($request->input('id'))->delete();
+        return response()->json(['success' => ['Az eszköz-típus sikeresen törölve!']]);
+    }
+
+    function update(Update $request) {
+        $request->validated();
+        DeviceType::find($request->input('id'))->update($request->all());
+        return response()->json(['success' => ['Az eszköz-típus sikeresen módosítva!']]);
     }
 }

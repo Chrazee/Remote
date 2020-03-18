@@ -51,7 +51,6 @@ function printErrorBag(element, array, bagAlert = null) {
 
 /* modal preloader */
 function showModalPreloader(inElement) {
-
     $(inElement + " .checkout-preloader-container").removeClass('d-none');
 }
 
@@ -79,7 +78,6 @@ function setIconsToDefault(inElement) {
     });
 }
 
-
 function iconSelector(inElement) {
     // set defaults
     $(inElement + " .icon-selector .collapse-default").collapse('show');
@@ -105,4 +103,40 @@ function iconSelectorValue(inElement) {
         value = $(inElement + " .icon-selector .collapse-custom select").val();
     }
     return value;
+}
+
+function iconSelectorById(inElement, iconId, defaultIconId) {
+    if(iconId === defaultIconId) { // default
+        // set radios
+        $(inElement + "_iconRadioDefault").prop("checked", true);
+        $(inElement + "_iconRadioCustom").prop("checked", false);
+        // set collapses
+        $(inElement + ' .icon-selector .collapse-default').collapse('show');
+        $(inElement + ' .icon-selector .collapse-custom').collapse('hide');
+
+        $(inElement + ' .icon-selector .collapse-default select').val(iconId);
+        $(inElement + ' .icon-selector .collapse-custom select').val(defaultIconId);
+    } else { // custom
+        // set radios
+        $(inElement + "_iconRadioDefault").prop("checked", false);
+        $(inElement + "_iconRadioCustom").prop("checked", true);
+        // set collapses
+        $(inElement + ' .icon-selector .collapse-default').collapse('hide');
+        $(inElement + ' .icon-selector .collapse-custom').collapse('show');
+        // set selection value
+        $(inElement + ' .icon-selector .collapse-custom select').val(iconId);
+    }
+
+    // radios click
+    $(inElement + " .icon-selector .default").click(function() {
+        $('.icon-selector .collapse-default').collapse('show');
+        $('.icon-selector .collapse-custom').collapse('hide');
+    });
+    $(inElement + " .icon-selector .custom").click(function() {
+        $('.icon-selector .collapse-default').collapse('hide');
+        $('.icon-selector .collapse-custom').collapse('show');
+    });
+
+    // initialize imagepicker(s)
+    $(inElement + " .icon-selector .image-picker").imagepicker();
 }

@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function() {
         // deviceType
         Route::get('/admin/devicetype', 'Admin\DeviceTypeController@index')->name('admin.deviceType');
         Route::post('/admin/devicetype/create', 'Admin\DeviceTypeController@create')->name('admin.deviceType.create');
+        Route::post('/admin/devicetype/delete', 'Admin\DeviceTypeController@delete')->name('admin.deviceType.delete');
+        Route::post('/admin/devicetype/update', 'Admin\DeviceTypeController@update')->name('admin.deviceType.update');
 });
 
 // Login
