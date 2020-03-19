@@ -1,7 +1,7 @@
 @extends('admin.layout.main')
 
 @section('id', 'Adminisztráció')
-@section('title', 'Eszköz típus beállítások')
+@section('title', 'Eszköz beállítások')
 
 @section('content')
 
@@ -14,7 +14,7 @@
                         <i class="fas fa-plus mt-0"></i>
                     </button>
                 </div>
-                <span class="white-text mx-3">Eszköz típusok</span>
+                <span class="white-text mx-3">Eszközök</span>
                 <div class="actions">
                     <button title="Módosítás" data-toggle="tooltip" data-placement="top" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 edit" disabled>
                         <i class="fas fa-pencil-alt mt-0"></i>
@@ -26,26 +26,26 @@
             </div>
             <div class="px-4">
                 <div class="table-responsive">
-                    <table class="table table-hover btn-table img-table mb-0" id="deviceTypesTable">
+                    <table class="table table-hover btn-table img-table mb-0" id="devicesTable">
                         <thead>
                             <tr>
                                 <th class="th-lg">Azonosító</th>
+                                <th class="th-lg">Név</th>
+                                <th class="th-lg">Csoport</th>
                                 <th class="th-lg">Típus</th>
-                                <th class="th-lg">Megjelenített név</th>
-                                <th class="th-lg">Ikon</th>
+                                <th class="th-lg">IP cím</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (!empty($deviceTypes))
-                                @foreach($deviceTypes as $deviceType)
-                                    <tr data-id="{{$deviceType->id}}" data-name="{{$deviceType->name}}" data-display_name="{{$deviceType->display_name}}" data-icon_id="{{$deviceType->icon->id}}" data-default_icon_id="{{$defaultIcon->id}}">
-                                        <td>{{$deviceType->id}}</td>
-                                        <td>{{$deviceType->name}}</td>
-                                        <td>{{$deviceType->display_name}}</td>
-                                        <td><img src="{{asset('assets/imgs/icons')}}/{{$deviceType->icon->name}}"></td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @foreach($devices as $device)
+                                <tr data-id="{{$device->id}}" data-display_name="{{$device->display_name}}" data-group_id="{{$device->group->id}}" data-type_id="{{$device->type->id}}" data-ip="{{$device->ip}}">
+                                    <td><a href="{{route('device', $device->id)}}">{{$device->id}}</a></td>
+                                    <td>{{$device->display_name}}</td>
+                                    <td>{{$device->group->name}}</td>
+                                    <td>{{$device->type->display_name}} ({{$device->type->name}})</td>
+                                    <td>{{$device->ip}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -56,19 +56,19 @@
 
 <script>
     $(document).ready(function() {
-        $("#deviceTypesTable tbody tr").click(function(e) {
+        $("#devicesTable tbody tr").click(function(e) {
             var id = $(this).attr('data-id');
 
-            $("#deviceTypesTable tbody tr").removeClass('tr-selected');
+            $("#devicesTable tbody tr").removeClass('tr-selected');
             $(this).addClass('tr-selected');
 
             $('.actions .delete').attr('data-id', id);
             $('.actions .delete').attr('data-display_name', $(this).attr('data-display_name'));
             $('.actions .edit').attr('data-id', id);
-            $('.actions .edit').attr('data-name', $(this).attr('data-name'));
             $('.actions .edit').attr('data-display_name', $(this).attr('data-display_name'));
-            $('.actions .edit').attr('data-icon_id', $(this).attr('data-icon_id'));
-            $('.actions .edit').attr('data-default_icon_id', $(this).attr('data-default_icon_id'));
+            $('.actions .edit').attr('data-group_id', $(this).attr('data-group_id'));
+            $('.actions .edit').attr('data-type_id', $(this).attr('data-type_id'));
+            $('.actions .edit').attr('data-ip', $(this).attr('data-ip'));
 
             setBtnDisabled('.actions .delete', false);
             setBtnDisabled('.actions .edit', false);
@@ -76,8 +76,8 @@
     });
 </script>
 
-@include('admin.includes.devicetype.modals.create')
-@include('admin.includes.devicetype.modals.delete')
-@include('admin.includes.devicetype.modals.update')
+@include('admin.includes.device.modals.create')
+@include('admin.includes.device.modals.delete')
+@include('admin.includes.device.modals.update')
 
 @endsection

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Device;
+namespace App\Http\Requests\Admin\Group;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class Create extends FormRequest
+class Update extends FormRequest
 {
     public function authorize()
     {

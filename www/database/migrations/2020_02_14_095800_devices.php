@@ -17,12 +17,12 @@ class Devices extends Migration
             $table->integer('id', true);
             $table->string('display_name');
             $table->integer('group_id')->index();
-            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('restrict');
             $table->integer('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('type_id')->index();
             $table->foreign('type_id')->references('id')->on('devices_type')->onDelete('restrict');;
-            $table->tinyInteger('status');
+            $table->json('last_data')->nullable();
             $table->timestamps();
         });
 

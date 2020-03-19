@@ -1073,4 +1073,99 @@ a:hover, a:active, a:focus {
     top: 0;
 }
 
+/* group tree  (https://www.cssscript.com/minimalist-tree-view-pure-css/) */
+.group-tree-box {
+    overflow-x: scroll;
+    display: flex;
+    padding: 25px;
+    -webkit-overflow-scrolling: touch
+}
 
+.group-tree {
+    margin: 0px auto;
+}
+
+.group-tree ul {
+    margin-left: 20px;
+    width: 100%;
+}
+
+.group-tree li {
+    list-style-type: none;
+    margin:30px;
+    position: relative;
+    width: 100%;
+}
+
+.group-tree li::before {
+    content: "";
+    position: absolute;
+    top:-22px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-radius:0 0 0 0px;
+    width:20px;
+    height:31px;
+}
+
+.group-tree li::after {
+    position:absolute;
+    content:"";
+    top:8px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-top:1px solid #ccc;
+    border-radius:0px 0 0 0;
+    width:20px;
+    height:100%;
+}
+
+.group-tree li:last-child::after  {
+    display:none;
+}
+
+.group-tree li:last-child:before{
+    border-radius: 0 0 0 5px;
+}
+
+ul.group-tree>li:first-child::before {
+    display:none;
+}
+
+ul.group-tree>li:first-child::after {
+    border-radius:5px 0 0 0;
+}
+
+.group-tree li a {
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    padding: 15px 18px;
+}
+
+.group-tree li a:hover, .group-tree li a:hover+ul li a,
+.group-tree li a:focus, .group-tree li a:focus+ul li a {
+    background: rgba(120, 218, 255, 0.3);
+    color: #000;
+    border: 1px solid  rgba(52,181,229,.3);
+}
+
+.group-tree li a:hover+ul li::after, .group-tree li a:focus+ul li::after,
+.group-tree li a:hover+ul li::before, .group-tree li a:focus+ul li::before
+.group-tree li a:hover+ul::before, .group-tree li a:focus+ul::before
+.group-tree li a:hover+ul ul::before, .group-tree li a:focus+ul ul::before{
+    border-color:  #000;
+}
+
+.group-tree-selected {
+    background: rgba(52,181,229,.3) !important;
+    border: 2px solid  rgba(0, 186, 255, 0.3) !important
+}
+
+.group-tree-icon {
+    width: 30px;
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}

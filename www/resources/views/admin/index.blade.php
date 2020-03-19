@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-6 box">
-        <a href="{{route('adminGeneral')}}">
+        <a href="{{route('admin.general')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-cog"></i>
@@ -17,7 +17,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminGroup')}}">
+        <a href="{{route('admin.group')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-map-marked"></i>
@@ -28,7 +28,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminDevices')}}">
+        <a href="{{route('admin.devices')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-microchip"></i>
@@ -50,7 +50,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="">
+        <a href="{{route('admin.modules')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="fa fa-cube"></i>
@@ -61,7 +61,7 @@
         </a>
     </div>
     <div class="col-md-6 box">
-        <a href="{{route('adminIcons')}}">
+        <a href="{{route('admin.icons')}}">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="far fa-file-image"></i>

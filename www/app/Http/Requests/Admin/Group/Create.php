@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Group;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class adminGroupUpdate extends FormRequest
+class Create extends FormRequest
 {
-    protected $errorBag = "groupUpdate";
-
     public function authorize()
     {
         return true;
@@ -18,19 +16,22 @@ class adminGroupUpdate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|string',
-            'description' => 'max:255',
-            'groupId' => 'required|int',
-            'iconId' => 'required|int'
+            'user_id' => 'required|int|exists:users,id',
+            'name' => 'required|string|max:255',
+            'description' => 'string|max:255',
+            'parent_id' => 'required|int',
+            'icon_id' => 'required|int|exists:groups_icon,id',
         ];
     }
 
     public function attributes()
     {
         return [
+            'user_id' => 'Felhasználó',
             'name' => 'Név',
-            'groupId' => 'Csoport',
-            'iconId' => 'Ikon'
+            'description' => 'Leírás',
+            'parent_id' => 'Csoport',
+            'icon_id' => 'Ikon',
         ];
     }
 

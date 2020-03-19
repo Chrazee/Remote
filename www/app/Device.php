@@ -8,6 +8,7 @@ use DB;
 class Device extends Model
 {
     protected $table = "devices";
+    protected $fillable = ['display_name', 'group_id', 'user_id', 'type_id', 'last_data', 'ip'];
 
     public static function exists($id) {
         $id = self::

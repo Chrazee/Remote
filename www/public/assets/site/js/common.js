@@ -140,3 +140,10 @@ function iconSelectorById(inElement, iconId, defaultIconId) {
     // initialize imagepicker(s)
     $(inElement + " .icon-selector .image-picker").imagepicker();
 }
+
+/* data attributes */
+function parseData(fromElement, toElement) {
+    $.each(fromElement.data(), function(index, value) {
+        $(toElement).attr('data-' + index, value);
+    });
+}

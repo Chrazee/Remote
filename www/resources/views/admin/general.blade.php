@@ -23,7 +23,7 @@
                         {{ session()->get('success') }}
                     </div>
                 @endif
-                <form method="post" action="{{route('adminSiteUpdate')}}">
+                <form method="post" action="{{route('admin.general.update')}}">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">

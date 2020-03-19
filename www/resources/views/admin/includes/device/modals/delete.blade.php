@@ -33,7 +33,7 @@
                         <div class="alert error-bag" style="display:none">
                             <ul></ul>
                         </div>
-                        <p>Biztosan törlöd az eszköz-típust?</p>
+                        <p>Biztosan törlöd az eszközt?</p>
                         <h2>
                             <span class="badge">Azonosító: <span class="id"></span></span>
                         </h2>
@@ -68,7 +68,7 @@
         $(btn).click(function() {
             $.ajax({
                 type: 'POST',
-                url: '{{route('admin.deviceType.delete')}}',
+                url: '{{route('admin.device.delete')}}',
                 data: {
                     _token: '{{csrf_token()}}',
                     id: $(modal + " .id").html(),

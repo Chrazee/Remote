@@ -34,13 +34,13 @@ class DeviceTypeController extends Controller
 
     function delete(Delete $request) {
         $request->validated();
-        DeviceType::find($request->input('id'))->delete();
+        DeviceType::findOrFail($request->input('id'))->delete();
         return response()->json(['success' => ['Az eszköz-típus sikeresen törölve!']]);
     }
 
     function update(Update $request) {
         $request->validated();
-        DeviceType::find($request->input('id'))->update($request->all());
+        DeviceType::findOrFail($request->input('id'))->update($request->all());
         return response()->json(['success' => ['Az eszköz-típus sikeresen módosítva!']]);
     }
 }

@@ -1,9 +1,9 @@
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-info" role="document">
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
         <div class="modal-content">
             <div class="checkout-preloader-container d-none">
                 <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
+                    <div class="spinner-layer spinner-red-only">
                         <div class="circle-clipper left">
                             <div class="circle"></div>
                         </div>
@@ -17,43 +17,32 @@
                 </div>
             </div>
             <div class="modal-header">
-                <p class="heading">Új eszköz hozzáadása</p>
+                <p class="heading"><span class="name"></span> törlése</p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="white-text">×</span>
                 </button>
             </div>
-            <div class="modal-body mx-3">
-                <div class="alert error-bag" style="display:none">
-                    <ul></ul>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <p class="text-center">
+                            <i class="fas fa-trash fa-4x"></i>
+                        </p>
+                    </div>
+                    <div class="col-9">
+                        <div class="alert error-bag" style="display:none">
+                            <ul></ul>
+                        </div>
+                        <p>Biztosan törlöd a csoportot?</p>
+                        <h2>
+                            <span class="badge">Azonosító: <span class="id"></span></span>
+                        </h2>
+                    </div>
                 </div>
-                <form>
-                    <div class="form-group mb-4">
-                        <input type="text" name="display_name" class="form-control" placeholder="Név">
-                    </div>
-                    <div class="form-group mb-4">
-                        <select name="group_id" class="browser-default custom-select">
-                            <option selected disabled>Csoport</option>
-                            @foreach($groups as $group)
-                                <option value="{{$group->id}}">{{$group->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mb-4">
-                        <select name="type_id" class="browser-default custom-select">
-                            <option selected disabled>Típus</option>
-                            @foreach($types as $type)
-                                <option value="{{$type->id}}">{{$type->display_name}} ({{$type->name}})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mb-4">
-                        <input type="number" name="ip" class="form-control" placeholder="IP cím">
-                    </div>
-                </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary btn-block submit-btn">
-                    Létrehozás <i class="fas fa-check ml-1"></i>
+                <button type="button" class="btn btn-outline-danger btn-block submit-btn">
+                    Törlés <i class="fas fa-trash ml-1"></i>
                 </button>
             </div>
         </div>
@@ -61,16 +50,15 @@
 </div>
 <script>
     $(document).ready(function() {
-        var modal = "#modalCreate";
+        var modal = "#modalDelete";
         var errorBag = modal + " .error-bag";
         var btn = modal + " .submit-btn";
 
         // modal
-        $('.actions .create').click(function() {
+        $('.actions .delete').click(function(e) {
+            $(modal + " .id").html($(modal).attr('data-id'));
+            $(modal + " .name").html( $(modal).attr('data-name'));
             $(modal).modal("show");
-        });
-        $(modal).on('shown.bs.modal', function () {
-            $(modal + " input:visible:first").focus();
         });
         $(modal).on('hidden.bs.modal', function () {
             clearErrorBag(errorBag);
@@ -80,14 +68,10 @@
         $(btn).click(function() {
             $.ajax({
                 type: 'POST',
-                url: '{{route('admin.device.create')}}',
+                url: '{{route('admin.group.delete')}}',
                 data: {
                     _token: '{{csrf_token()}}',
-                    user_id: {{Auth::user()->id}},
-                    display_name: $(modal + " input[name='display_name']").val(),
-                    group_id: $(modal + " select[name='group_id']").val(),
-                    type_id: $(modal + " select[name='type_id']").val(),
-                    ip: $(modal + " input[name='ip']").val(),
+                    id: $(modal).attr('data-id'),
                 },
                 beforeSend: function() {
                     showModalPreloader(modal);

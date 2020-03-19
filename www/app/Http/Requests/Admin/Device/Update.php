@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\DeviceType;
+namespace App\Http\Requests\Admin\Device;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,20 +16,22 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|int',
-            'name' => 'required|max:255|string|unique:devices_type,name,' . $this->id,
-            'display_name' => 'required|max:255',
-            'icon_id' => 'required|int'
+            'user_id' => 'required|int|exists:users,id',
+            'name' => 'required|string|max:255',
+            'description' => 'string|max:255',
+            'parent_id' => 'required|int|',
+            'icon_id' => 'required|int|exists:groups_icon,id',
         ];
     }
 
     public function attributes()
     {
         return [
-            'id' => 'Azonosító',
-            'name' => 'Típus',
-            'display_name' => 'Megjelenített név',
-            'icon_id' => 'Ikon'
+            'user_id' => 'Felhasználó',
+            'name' => 'Név',
+            'description' => 'Leírás',
+            'parent_id' => 'Csoport',
+            'icon_id' => 'Ikon',
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\DeviceType;
+namespace App\Http\Requests\Admin\Device;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -16,7 +16,7 @@ class Delete extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|int|unique:devices,type_id'
+            'id' => 'required|int'
         ];
     }
 

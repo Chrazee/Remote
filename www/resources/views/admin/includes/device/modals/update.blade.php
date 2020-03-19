@@ -28,28 +28,26 @@
                 </div>
                 <form>
                     <div class="form-group mb-4">
-                        <input type="text" name="name" class="form-control" placeholder="Típus">
+                        <input type="text" name="display_name" class="form-control" placeholder="Név">
                     </div>
                     <div class="form-group mb-4">
-                        <input type="text" name="display_name" class="form-control" placeholder="Megjelenített név">
+                        <select name="group_id" class="browser-default custom-select">
+                            <option selected disabled>Csoport</option>
+                            @foreach($groups as $group)
+                                <option value="{{$group->id}}">{{$group->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group mb-4">
-                        <div class="icon-selector">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input default" id="modalUpdate_iconRadioDefault" name="iconSelector" checked="">
-                                <label class="custom-control-label" for="modalUpdate_iconRadioDefault">Alapértelmezett ikon használata</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input custom" id="modalUpdate_iconRadioCustom" name="iconSelector">
-                                <label class="custom-control-label" for="modalUpdate_iconRadioCustom">Saját ikon kiválasztása</label>
-                            </div>
-                            <div class="collapse collapse-default">
-                                @include('admin.includes.iconSelector', ['showOnlyDefault' => true, 'icons' => $defaultIcon,])
-                            </div>
-                            <div class="collapse collapse-custom">
-                                @include('admin.includes.iconSelector', [ 'showOnlyDefault' => false, 'icons' => $icons, 'defaultIcon' => $defaultIcon])
-                            </div>
-                        </div>
+                        <select name="type_id" class="browser-default custom-select">
+                            <option selected disabled>Típus</option>
+                            @foreach($types as $type)
+                                <option value="{{$type->id}}">{{$type->display_name}} ({{$type->name}})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="number" name="ip" class="form-control" placeholder="IP cím">
                     </div>
                 </form>
             </div>
@@ -70,11 +68,11 @@
         // modal
         $('.actions .edit').click(function() {
             $(modal).attr('data-id', $(this).attr('data-id'));
-            $(modal + " input[name='name']").val($(this).attr('data-name'));
-            $(modal + " .display_name").html($(this).attr('data-display_name'));
             $(modal + " input[name='display_name']").val($(this).attr('data-display_name'));
-
-            iconSelectorById(modal, $(this).attr('data-icon_id'), $(this).attr('data-default_icon_id'));
+            $(modal + " .display_name").html($(this).attr('data-display_name'));
+            $(modal + " select[name='group_id']").val($(this).attr('data-group_id'));
+            $(modal + " select[name='type_id']").val($(this).attr('data-type_id'));
+            $(modal + " input[name='ip']").val($(this).attr('data-ip'));
 
             $(modal).modal("show");
         });
@@ -89,13 +87,15 @@
         $(btn).click(function() {
             $.ajax({
                 type: 'POST',
-                url: '{{route('admin.deviceType.update')}}',
+                url: '{{route('admin.device.update')}}',
                 data: {
                     _token: '{{csrf_token()}}',
-                    id: $(modal).attr('data-id'),
-                    name: $(modal + " input[name='name']").val(),
+                    user_id: '{{Auth::user()->id}}',
+                    id:  $(modal).attr('data-id'),
                     display_name: $(modal + " input[name='display_name']").val(),
-                    icon_id: iconSelectorValue(modal),
+                    group_id: $(modal + " select[name='group_id']").val(),
+                    type_id: $(modal + " select[name='type_id']").val(),
+                    ip: $(modal + " input[name='ip']").val(),
                 },
                 beforeSend: function() {
                     showModalPreloader(modal);
