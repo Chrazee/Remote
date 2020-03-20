@@ -16,22 +16,22 @@ class Update extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required|int',
             'user_id' => 'required|int|exists:users,id',
-            'name' => 'required|string|max:255',
-            'description' => 'string|max:255',
-            'parent_id' => 'required|int|',
-            'icon_id' => 'required|int|exists:groups_icon,id',
+            'display_name' => 'required|string|max:255',
+            'group_id' => 'required|int|exists:groups,id',
+            'type_id' => 'required|int|exists:devices_type,id',
         ];
     }
 
     public function attributes()
     {
         return [
+            'id' => 'Azonosító',
             'user_id' => 'Felhasználó',
-            'name' => 'Név',
-            'description' => 'Leírás',
-            'parent_id' => 'Csoport',
-            'icon_id' => 'Ikon',
+            'display_name' => 'Név',
+            'group_id' => 'Csoport',
+            'type_id' => 'Típus',
         ];
     }
 

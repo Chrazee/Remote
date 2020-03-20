@@ -16,10 +16,11 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|int|exists:users,id',
-            'display_name' => 'required|string|max:255',
-            'group_id' => 'required|int|exists:groups,id',
-            'type_id' => 'required|int|exists:devices_type,id',
+
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'parent_id' => 'required|int',
+            'icon_id' => 'required|int|exists:groups_icon,id',
         ];
     }
 
@@ -27,9 +28,10 @@ class Update extends FormRequest
     {
         return [
             'user_id' => 'Felhasználó',
-            'display_name' => 'Név',
-            'group_id' => 'Csoport',
-            'type_id' => 'Típus',
+            'name' => 'Név',
+            'description' => 'Leírás',
+            'parent_id' => 'Csoport',
+            'icon_id' => 'Ikon',
         ];
     }
 

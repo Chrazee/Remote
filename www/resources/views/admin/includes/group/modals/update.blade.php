@@ -96,7 +96,6 @@
 
         // submit
         $(btn).click(function() {
-            alert($(modal + " input[name='name']").val());
             $.ajax({
                 type: 'POST',
                 url: '{{route('admin.group.update')}}',

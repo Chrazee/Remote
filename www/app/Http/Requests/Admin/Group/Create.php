@@ -18,7 +18,7 @@ class Create extends FormRequest
         return [
             'user_id' => 'required|int|exists:users,id',
             'name' => 'required|string|max:255',
-            'description' => 'string|max:255',
+            'description' => 'nullable|string|max:255',
             'parent_id' => 'required|int',
             'icon_id' => 'required|int|exists:groups_icon,id',
         ];
