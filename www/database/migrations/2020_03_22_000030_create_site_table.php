@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DevicesType extends Migration
+class CreateSiteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class DevicesType extends Migration
      */
     public function up()
     {
-        Schema::create('devices_type', function (Blueprint $table) {
+        Schema::create('site', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name')->unique();
-            $table->string('display_name');
-            $table->integer('icon_id')->index();
-            $table->foreign('icon_id')->references('id')->on('devices_type_icon');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class DevicesType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devicetype');
+        Schema::dropIfExists('site');
     }
 }

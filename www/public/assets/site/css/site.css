@@ -449,6 +449,17 @@ a:hover, a:active, a:focus {
     background:rgba(255,255,255,0.5)
 }
 
+.preloader-text {
+    position: absolute;
+    margin-top: 50px;
+    font-size: 0.75em;
+    font-style: italic;
+}
+
+.preloader-text.text-blue {
+    color: #4285f4;
+}
+
 .preloader-wrapper
 {
     position:relative;
@@ -586,45 +597,38 @@ a:hover, a:active, a:focus {
     }
 }
 
-.active .spinner-layer.spinner-blue
-{
+.active .spinner-layer.spinner-blue {
     -webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,blue-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,blue-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .spinner-layer.spinner-red
-{
+.active .spinner-layer.spinner-red {
     -webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,red-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,red-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .spinner-layer.spinner-yellow
-{
+.active .spinner-layer.spinner-yellow {
     -webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,yellow-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,yellow-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .spinner-layer.spinner-green
-{
+.active .spinner-layer.spinner-green {
     -webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,green-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,green-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .spinner-layer.spinner-blue-only,.active .spinner-layer.spinner-red-only,.active .spinner-layer.spinner-yellow-only,.active .spinner-layer.spinner-green-only,.active .spinner-layer.spinner-primary-color-only
-{
+.active .spinner-layer.spinner-blue-only,.active .spinner-layer.spinner-red-only,.active .spinner-layer.spinner-yellow-only,.active .spinner-layer.spinner-green-only,.active .spinner-layer.spinner-primary-color-only {
     opacity:1;
     -webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .circle-clipper.left .circle
-{
+.active .circle-clipper.left .circle {
     -webkit-animation:left-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:left-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
 
-.active .circle-clipper.right .circle
-{
+.active .circle-clipper.right .circle {
     -webkit-animation:right-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both;
     animation:right-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both
 }
@@ -1064,7 +1068,6 @@ a:hover, a:active, a:focus {
         opacity:0
     }
 }
-
 
 /* sticky element */
 .sticky {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Site;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*', function ($view) {
+            $site =  Site::all()->keyBy('name')->mapWithKeys(function ($item) {
+                return [$item['name'] => $item['value']];
+            });
+            return $view->with('site', $site);
+        });
     }
 }

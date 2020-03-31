@@ -9,17 +9,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/group/{id}/type/{type}', 'GroupController@showType');
 
     // Device
-    Route::get('/device/{id}', 'IconController@show')->name('device');
-    Route::get('/device/checkConnection', 'IconController@checkConnection');
+    Route::get('/device/{id}', 'DeviceController@show')->name('device');
+    Route::post('/device/request', 'DeviceController@request')->name('device.request');
 
     // Admin
     Route::get('/admin', 'Admin\MainController@index');
         // general
         Route::get('/admin/general', 'Admin\GeneralController@index')->name('admin.general');
         Route::post('/admin/general/update', 'Admin\GeneralController@update')->name('admin.general.update');
-        // modules
-        Route::get('/admin/modules', 'Admin\ModuleController@index')->name('admin.modules');
-        // icons
+            // icons
         Route::get('/admin/icons', 'Admin\IconController@index')->name('admin.icons');
         Route::get('/admin/icons/devicetype', 'Admin\IconController@devicetype')->name('admin.iconDeviceType');
         Route::get('/admin/icons/group', 'Admin\IconController@group')->name('admin.iconGroup');
@@ -31,7 +29,6 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/group/create', 'Admin\GroupController@create')->name('admin.group.create');
         Route::post('/admin/group/update', 'Admin\GroupController@update')->name('admin.group.update');
         Route::post('/admin/group/delete', 'Admin\GroupController@delete')->name('admin.group.delete');
-        Route::post('/admin/group/get', 'Admin\GroupController@get')->name('admin.groupGet');
         // devices
         Route::get('/admin/devices', 'Admin\DeviceController@index')->name('admin.devices');
         Route::post('/admin/device/create', 'Admin\DeviceController@create')->name('admin.device.create');
@@ -42,6 +39,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/admin/devicetype/create', 'Admin\DeviceTypeController@create')->name('admin.deviceType.create');
         Route::post('/admin/devicetype/delete', 'Admin\DeviceTypeController@delete')->name('admin.deviceType.delete');
         Route::post('/admin/devicetype/update', 'Admin\DeviceTypeController@update')->name('admin.deviceType.update');
+        // modules
+        Route::get('/admin/modules', 'Admin\ModuleController@index')->name('admin.modules');
+        Route::post('/admin/module/create', 'Admin\ModuleController@create')->name('admin.module.create');
+        Route::post('/admin/module/update', 'Admin\ModuleController@update')->name('admin.module.update');
+        Route::post('/admin/module/delete', 'Admin\ModuleController@delete')->name('admin.module.delete');
 });
 
 // Login

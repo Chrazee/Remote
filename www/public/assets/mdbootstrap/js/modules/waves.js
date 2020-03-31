@@ -120,7 +120,7 @@
 
       element = element || this;
 
-      // Create ripple
+      // SendRequest ripple
       var ripple = document.createElement('div');
       ripple.className = 'waves-ripple waves-rippling';
       element.appendChild(ripple);

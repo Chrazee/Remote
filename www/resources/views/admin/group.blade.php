@@ -1,4 +1,4 @@
-@extends('admin.layout.main')
+@extends('layouts.admin')
 
 @section('id', 'Adminisztráció')
 @section('title', 'Csoport beállítások')

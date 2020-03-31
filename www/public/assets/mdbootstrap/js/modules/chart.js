@@ -1894,7 +1894,7 @@ defaults._set('bar', {
 		xAxes: [{
 			type: 'category',
 
-			// Specific to Bar Controller
+			// Specific to Bar Handler
 			categoryPercentage: 0.8,
 			barPercentage: 0.9,
 
@@ -1929,7 +1929,7 @@ defaults._set('horizontalBar', {
 			position: 'left',
 			type: 'category',
 
-			// Specific to Horizontal Bar Controller
+			// Specific to Horizontal Bar Handler
 			categoryPercentage: 0.8,
 			barPercentage: 0.9,
 
@@ -3843,7 +3843,7 @@ var Tooltip = require(36);
 
 module.exports = function(Chart) {
 
-	// Create a dictionary of chart types, to allow for extension of existing types
+	// SendRequest a dictionary of chart types, to allow for extension of existing types
 	Chart.types = {};
 
 	// Store a reference to each instance - allowing us to globally resize chart instances on window resize.
@@ -3926,7 +3926,7 @@ module.exports = function(Chart) {
 			me._bufferedRender = false;
 
 			/**
-			 * Provided for backward compatibility, Chart and Chart.Controller have been merged,
+			 * Provided for backward compatibility, Chart and Chart.Handler have been merged,
 			 * the "instance" still need to be defined since it might be called from plugins.
 			 * @prop Chart#chart
 			 * @deprecated since version 2.6.0

@@ -58,4 +58,8 @@ class Device extends Model
         return $this->belongsTo('App\Group');
         /*return $this->hasMany('App\Group', 'group_id', 'id');*/
     }
+
+    public function module() {
+        return $this->belongsTo('App\Module');
+    }
 }

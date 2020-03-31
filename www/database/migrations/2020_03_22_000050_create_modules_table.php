@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Groups extends Migration
+class CreateModulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class Groups extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
-            $table->integer('id',true);
-            $table->integer('parent_id');
+        Schema::create('modules', function (Blueprint $table) {
+            $table->integer('id', true);
             $table->integer('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('icon_id')->index();
-            $table->foreign('icon_id')->references('id')->on('groups_icon');
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('directory')->unique();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->tinyInteger('public')->default('0');
             $table->timestamps();
         });
     }
@@ -33,6 +32,8 @@ class Groups extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('modules');
+
+        Schema::drop('modules');
     }
 }

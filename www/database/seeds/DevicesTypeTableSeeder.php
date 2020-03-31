@@ -21,7 +21,7 @@ class DevicesTypeTableSeeder extends Seeder
         DeviceType::create([
             'name' => 'thermometer',
             'display_name' => 'Hőmérők',
-            'icon_id' => '1',
+            'icon_id' => '3'
         ]);
 
         DeviceType::create([
@@ -33,8 +33,7 @@ class DevicesTypeTableSeeder extends Seeder
         DeviceType::create([
             'name' => 'sensor',
             'display_name' => 'Szenzorok',
-            'icon_id' => '1',
-
+            'icon_id' => '1'
         ]);
     }
 }

@@ -9,7 +9,7 @@ class VerificationController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Email Verification Controller
+    | Email Verification Handler
     |--------------------------------------------------------------------------
     |
     | This controller is responsible for handling email verification for any
@@ -28,7 +28,7 @@ class VerificationController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
+     * SendRequest a new controller instance.
      *
      * @return void
      */

@@ -9,7 +9,7 @@ class ConfirmPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Confirm Password Controller
+    | Confirm Password Handler
     |--------------------------------------------------------------------------
     |
     | This controller is responsible for handling password confirmations and
@@ -28,7 +28,7 @@ class ConfirmPasswordController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
+     * SendRequest a new controller instance.
      *
      * @return void
      */

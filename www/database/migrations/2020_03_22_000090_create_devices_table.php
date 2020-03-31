@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Devices extends Migration
+class CreateDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,6 +22,8 @@ class Devices extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('type_id')->index();
             $table->foreign('type_id')->references('id')->on('devices_type')->onDelete('restrict');;
+            $table->integer('module_id')->index()->nullable();
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('restrict');
             $table->json('last_data')->nullable();
             $table->timestamps();
         });

@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Login Controller
+    | Login Handler
     |--------------------------------------------------------------------------
     |
     | This controller handles authenticating users for the application and
@@ -28,7 +28,7 @@ class LoginController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
+     * SendRequest a new controller instance.
      *
      * @return void
      */

@@ -7,7 +7,7 @@ use App\Group;
 use App\Device;
 use App\DeviceType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Device\Create;
+use App\Http\Requests\Admin\Device\SendRequest;
 use App\Http\Requests\Admin\Device\Delete;
 use App\Http\Requests\Admin\Device\Update;
 
@@ -29,7 +29,7 @@ class DeviceController extends Controller
         ]);
     }
 
-    function create(Create $request) {
+    function create(SendRequest $request) {
         $request->validated();
         Device::create($request->all());
         return response()->json(['success' => ['Az eszköz sikeresen létrehozva!']]);
