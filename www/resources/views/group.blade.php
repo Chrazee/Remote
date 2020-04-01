@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
-@section('id', 'group')
 @section('title', 'Csoportok')
+
 @section('content')
     <div class="row">
         @if (!$validGroup)

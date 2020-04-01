@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('title', 'Eszközök')
+
 @section('content')
 
 @if (!empty($error))

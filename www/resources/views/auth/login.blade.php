@@ -22,17 +22,7 @@
                         </div>
                         <div class="card-body">
                             <form id="loginForm">
-                                <div class="alert error-bag" style="display:none">
-                                    <div class="alert-header">
-                                        <span class="icon"></span>
-                                        <span class="justify-content-center align-self-center">
-                                            <span class="title"></span>
-                                        </span>
-                                    </div>
-                                    <div class="alert-content">
-                                        <ul class="errors"></ul>
-                                    </div>
-                                </div>
+                                @include('includes.alert.formAlert')
                                 <div class="md-form pb-1">
                                     <i class="fa fa-user prefix"></i>
                                     <input type="text" id="username" name="username" class="form-control" autofocus>

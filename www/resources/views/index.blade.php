@@ -1,6 +1,5 @@
 @extends('layouts.main')
 
-@section('id', 'home')
 @section('title', 'Főoldal')
 
 @section('content')

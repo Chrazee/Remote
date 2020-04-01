@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Device\SendRequest;
 use App\Device as Device;
-
-use Illuminate\Support\Facades\Storage;
 use Module\Exceptions\ValidationException;
-use Module\Includer;
 use Module\Validators\StructureValidator;
 
 class DeviceController extends Controller

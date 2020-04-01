@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeviceType;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Validator;
-use Auth;
 use App\Group as Group;
 use App\Device as Device;
 

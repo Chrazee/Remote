@@ -9,15 +9,5 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    /*
-        index
-        create
-        store
-        show
-        edit
-        update
-        destroy
-     */
-
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
