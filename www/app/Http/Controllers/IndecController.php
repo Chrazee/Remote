@@ -10,7 +10,7 @@ use App\Site;
 use App\Device;
 use App\Group;
 
-class MainController extends Controller
+class IndecController extends Controller
 {
     function index()
     {
@@ -20,7 +20,7 @@ class MainController extends Controller
             ->where('parent_id', '=', '-1')
             ->get();
 
-        return view('home', [
+        return view('index', [
             'deviceCount' => $deviceCount,
             'groups' => $groups
         ]);

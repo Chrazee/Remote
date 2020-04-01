@@ -1,19 +1,22 @@
 <?php
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/', 'MainController@index');
+    Route::get('/', 'IndecController@index')->name('index');
 
     // Group & Type
-    Route::get('/group', function () { return redirect('/'); });
-    Route::get('/group/{id}', 'GroupController@showGroup');
-    Route::get('/group/{id}/type/{type}', 'GroupController@showType');
+    //Route::get('/group', function () { return redirect('/'); });
+    Route::get('/group/{id}', 'GroupController@showGroup')->name('group');
+    Route::get('/group/{id}/type/{type}', 'GroupController@showType')->name('group.type');
 
     // Device
     Route::get('/device/{id}', 'DeviceController@show')->name('device');
     Route::post('/device/request', 'DeviceController@request')->name('device.request');
 
+    // Favorites
+    Route::get('/favorites', 'FavoriteController@index')->name('favorites');
+
     // Admin
-    Route::get('/admin', 'Admin\MainController@index');
+    Route::get('/admin', 'Admin\MainController@index')->name(('admin'));
         // general
         Route::get('/admin/general', 'Admin\GeneralController@index')->name('admin.general');
         Route::post('/admin/general/update', 'Admin\GeneralController@update')->name('admin.general.update');
@@ -47,11 +50,6 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 // Login
-Route::get('/login', [ 'as' => 'login', 'uses' => 'LoginController@index']);
-Route::post('/login/checklogin', 'LoginController@checklogin');
-Route::get('/logout', 'LoginController@logout');
-
-// Modules
-Route::post('/module/switch/','Modules\SwitchController@switch');
-Route::post('/module/switch/refresh', 'Modules\SwitchController@refresh');
-Route::post('/module/sensor/getData', 'Modules\SensorController@getData');
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('/login/validate', 'Auth\LoginController@login')->name('login.validate');

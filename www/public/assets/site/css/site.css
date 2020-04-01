@@ -1,3 +1,10 @@
+/*
+    Colors:
+        Primary: #553895 (85, 56, 149)
+        Secondary: #86469c (134,70,156)
+
+ */
+
 @font-face {
   font-family: 'montserrat';
   src: url('../../fonts/Montserrat/Montserrat-Regular.ttf');
@@ -22,6 +29,14 @@ a:hover, a:active, a:focus {
 
 .bg-secondary {
     background: linear-gradient(90deg, rgba(134,70,156,1) 0%, rgba(85,56,149,1) 100%);
+}
+
+.btn-primary {
+    background-color: #553895 !important;
+}
+
+.btn-secondary {
+    background-color: #86469c !important;
 }
 
 /* TEEASER */
@@ -231,6 +246,66 @@ a:hover, a:active, a:focus {
 
 #navbar-bottom .nav-item.active{
     color: rgba(46, 46, 46, 0.8);
+}
+
+/* alerts */
+
+.alert {
+    color: #fefffd;
+    border-radius: .125rem;
+}
+
+.alert-danger {
+    background-color: #ff6b79 !important;
+    border-color: #ff6b79;
+}
+
+.alert-success {
+    background-color: #33d275 !important;
+    border-color: #33d275;
+}
+
+.alert-warning {
+    background-color: #ffc95c !important;
+    border-color: #ffc95c;
+}
+
+.alert-info {
+    background-color: #5cc4eb !important;
+    border-color: #5cc4eb;
+}
+
+.alert-header {
+    display: flex;
+    height: 100%;
+    font-size: 1.2em;
+    clear: both;
+    margin-bottom: 5px;
+}
+
+.alert-header .icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+ul.errors {
+    margin-bottom: 0px;
+}
+
+/* TOAST  */
+
+.toast {
+    position: absolute;
+}
+
+.toast.left {
+    top: 0;
+    right: 0;
+}
+
+.toast-right {
+    top: 0;
+    left: 0;
 }
 
 

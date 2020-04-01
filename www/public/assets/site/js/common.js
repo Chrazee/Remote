@@ -25,27 +25,74 @@ function setBtn(element, disabled = null, text = null) {
 }
 
 /* error bag */
+function setErrorBagIcon(element, type) {
+    var icon = '<i class="far fa-hand-paper animated"></i>';
+    if(type === "danger") {
+        icon = '<i class="far fa-hand-paper animated"></i>';
+    } else if(type === "success") {
+        icon = '<i class="fas fa-check animated"></i>';
+    } else if(type === "warning") {
+        icon = '<i class="fas fa-exclamation-triangle"></i>';
+    } else if(type === "info") {
+        icon = '<i class="fas fa-exclamation-circle"></i>';
+    }
+
+    $(element + " .alert-header .icon").html(icon);
+}
+
+function stopAnimationOnErrorBagIcon(element) {
+    $(element + " .alert-header .icon .animated").removeClass('shake fast');
+}
+function startAnimationOnErrorBagIcon(element) {
+    $(element + " .alert-header .icon .animated").addClass('shake fast');
+}
+
+function hideErrorBag(element) {
+    stopAnimationOnErrorBagIcon(element);
+    $(element).fadeOut(500);
+}
+function showErrorBag(element) {
+    $(element).fadeIn(500);
+    startAnimationOnErrorBagIcon(element);
+}
+
 function setErrorBagAlert(element, alertType) {
     $(element).removeClass (function (index, className) {
         return (className.match (/(^|\s)alert-\S+/g) || []).join(' ');
     });
     $(element).addClass('alert-' + alertType);
 }
-
-function clearErrorBag(element) {
-    $(element).html("<ul></ul>");
-    $(element).hide();
+function setErrorBagHeader(element, text) {
+    $(element + " .alert-header .title").html(text);
+}
+function setErrorBagContent(element, content) {
+    $.each(content, function(key, value) {
+        $(element).find(".alert-content ul.errors").append('<li>'+value+'</li>');
+    });
 }
 
-function printErrorBag(element, array, bagAlert = null) {
-    $(element).find("ul").html('');
-    $(element).fadeIn(1000);
-    $.each(array, function(key, value) {
-        $(element).find("ul").append('<li>'+value+'</li>');
-    });
+function printErrorBag(element, bagAlert = null, header = null, content = null) {
+    setErrorBagIcon(element, bagAlert);
+    showErrorBag(element);
+    clearErrorBag(element);
 
     if(bagAlert != null) {
         setErrorBagAlert(element, bagAlert);
+    }
+
+    if(header != null) {
+        setErrorBagHeader(element, header);
+    }
+
+    if(content != null) {
+        setErrorBagContent(element, content);
+    }
+}
+
+function clearErrorBag(element, hide = false) {
+    $(element).find(".alert-content ul.errors").html('');
+    if(hide) {
+        hideErrorBag(element);
     }
 }
 
