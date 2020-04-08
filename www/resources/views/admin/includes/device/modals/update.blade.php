@@ -1,78 +1,38 @@
-<div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-info" role="document">
-        <div class="modal-content">
-            <div class="checkout-preloader-container d-none">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-header">
-                <p class="heading"><span class="display_name"></span> módosítása</p>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">×</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <div class="alert error-bag" style="display:none">
-                    <ul></ul>
-                </div>
-                <form>
-                    <div class="form-group mb-4">
-                        <input type="text" name="display_name" class="form-control" placeholder="Név">
-                    </div>
-                    <div class="form-group mb-4">
-                        <select name="group_id" class="browser-default custom-select">
-                            <option selected disabled>Csoport</option>
-                            @foreach($groups as $group)
-                                <option value="{{$group->id}}">{{$group->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mb-4">
-                        <select name="type_id" class="browser-default custom-select">
-                            <option selected disabled>Típus</option>
-                            @foreach($types as $type)
-                                <option value="{{$type->id}}">{{$type->display_name}} ({{$type->name}})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group mb-4">
-                        <input type="number" name="ip" class="form-control" placeholder="IP cím">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary btn-block submit-btn">
-                    Módosítás <i class="fas fa-check ml-1"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+@component('admin.components.modalForm')
+    @slot('id', 'update')
+    @slot('color', 'info')
+    @slot('preloaderColor', 'blue')
+    @slot('header')
+        <p class="heading"><span class="name"></span> módosítása</p>
+    @endslot
+    @slot('body')
+        @include('admin.includes.device.modals.createAndUpdateForm', ['groups' => $groups, 'types' => $types, ['modules' => $modules, 'protocols' => $protocols]])
+    @endslot
+    @slot('footer')
+        <button type="button" class="btn btn-outline-primary btn-block actions submit">
+            Módosítás <i class="fas fa-check ml-1"></i>
+        </button>
+    @endslot
+@endcomponent
+
 <script>
     $(document).ready(function() {
         var modal = "#modalUpdate";
+        var form = modal + " form";
         var errorBag = modal + " .error-bag";
-        var btn = modal + " .submit-btn";
+        var btn = modal + " .actions.submit";
+        var refreshTime = 1500;
 
         // modal
         $('.actions .edit').click(function() {
             $(modal).attr('data-id', $(this).attr('data-id'));
-            $(modal + " input[name='display_name']").val($(this).attr('data-display_name'));
-            $(modal + " .display_name").html($(this).attr('data-display_name'));
+            $(modal + " input[name='name']").val($(this).attr('data-name'));
+            $(modal + " .name").html($(this).attr('data-name'));
             $(modal + " select[name='group_id']").val($(this).attr('data-group_id'));
             $(modal + " select[name='type_id']").val($(this).attr('data-type_id'));
-            $(modal + " input[name='ip']").val($(this).attr('data-ip'));
+            $(modal + " select[name='module_id']").val($(this).attr('data-module_id'));
+            $(modal + " select[name='protocol_id']").val($(this).attr('data-protocol_id'));
+            $(modal + " input[name='address']").val($(this).attr('data-address'));
 
             $(modal).modal("show");
         });
@@ -80,7 +40,7 @@
             $(modal + " input:visible:first").focus();
         });
         $(modal).on('hidden.bs.modal', function () {
-            clearErrorBag(errorBag);
+            clearErrorBag(errorBag, true);
         });
 
         // submit
@@ -92,34 +52,31 @@
                     _token: '{{csrf_token()}}',
                     user_id: '{{Auth::user()->id}}',
                     id:  $(modal).attr('data-id'),
-                    display_name: $(modal + " input[name='display_name']").val(),
+                    name: $(modal + " input[name='name']").val(),
                     group_id: $(modal + " select[name='group_id']").val(),
                     type_id: $(modal + " select[name='type_id']").val(),
-                    ip: $(modal + " input[name='ip']").val(),
+                    module_id: $(modal + " select[name='module_id']").val(),
+                    protocol_id: $(modal + " select[name='protocol_id']").val(),
+                    address: $(modal + " input[name='address']").val(),
                 },
                 beforeSend: function() {
                     showModalPreloader(modal);
                     setBtnDisabled(btn);
-                    clearErrorBag(errorBag);
+                    clearErrorBag(errorBag, true);
                 },
                 success:function(response) {
+                    hideModalPreloader(modal);
+                    setFormInputDisabled(form, true);
+                    setBtnDisabled(btn, true);
+                    printErrorBag(errorBag, 'success', response.message, null);
                     setTimeout(function() {
-                        hideModalPreloader(modal);
-                        setBtnDisabled(btn, false);
-                        if($.isEmptyObject(response.error)) {
-                            printErrorBag(errorBag, response.success, 'success');
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1500);
-                        } else {
-                            printErrorBag(errorBag, response.error, 'danger');
-                        }
-                    }, 500);
+                        location.reload();
+                    }, refreshTime);
                 },
                 error: function(xhr, status, error) {
                     hideModalPreloader(modal);
                     setBtnDisabled(btn, false);
-                    printErrorBag(errorBag, {error: xhr.status + ': ' + xhr.statusText}, 'danger');
+                    printErrorBag(errorBag, 'danger', xhr.responseJSON.message, xhr.responseJSON.errors);
                 }
             });
         });

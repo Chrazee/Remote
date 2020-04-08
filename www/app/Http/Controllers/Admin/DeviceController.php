@@ -2,48 +2,53 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Site;
 use App\Group;
 use App\Device;
 use App\DeviceType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Device\SendRequest;
+use App\Http\Requests\Admin\Device\Create;
 use App\Http\Requests\Admin\Device\Delete;
 use App\Http\Requests\Admin\Device\Update;
+use App\Module;
+use App\Protocol;
+use Illuminate\Support\Facades\Auth;
 
 class DeviceController extends Controller
 {
     function index()
     {
-        $devices = Device::with(['group', 'type'])->get();
-        $types = DeviceType::all();
-        $groups = Group::all();
+        $devices = Device::with(['user', 'group', 'type', 'module', 'protocol'])->where('user_id', Auth::user()->id)->get();
+
+        $types = DeviceType::where('user_id', Auth::user()->id)->get();
+        $groups = Group::where('user_id', Auth::user()->id)->get();
+        $modules = Module::where('user_id', Auth::user()->id)->get();
+        $protocols= Protocol::all();
 
         return view('admin.devices', [
-            'site_name' => Site::get('site_name'),
-            'site_homepage' => Site::get('site_homepage_group_id'),
-            'api_key' => Site::get('api_key'),
+            'title' => 'Eszközök',
             'devices' => $devices,
             'types' => $types,
-            'groups' => $groups
+            'groups' => $groups,
+            'modules' => $modules,
+            'protocols' => $protocols
         ]);
     }
 
-    function create(SendRequest $request) {
-        $request->validated();
-        Device::create($request->all());
-        return response()->json(['success' => ['Az eszköz sikeresen létrehozva!']]);
+    function create(Create $request) {
+        $validated = $request->validated();
+        Device::create($validated);
+        return response()->json(['message' => ['Az eszköz sikeresen létrehozva!']]);
     }
 
     function delete(Delete $request) {
-        $request->validated();
-        Device::findOrFail($request->input('id'))->delete();
-        return response()->json(['success' => ['Az eszköz sikeresen törölve!']]);
+        $validated = $request->validated();
+        Device::findOrFail($validated['id'])->delete();
+        return response()->json(['message' => ['Az eszköz sikeresen törölve!']]);
     }
 
     function update(Update $request) {
-        $request->validated();
-        Device::findOrFail($request->input('id'))->update($request->all());
-        return response()->json(['success' => ['Az eszköz-típus sikeresen módosítva!']]);
+        $validated = $request->validated();
+        Device::findOrFail($validated['id'])->update($request->all());
+        return response()->json(['message' => ['Az eszköz-típus sikeresen módosítva!']]);
     }
 }

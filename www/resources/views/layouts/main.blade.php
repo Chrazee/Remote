@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>{{$site['site_name']}} - @yield('title')</title>
+        <title>{{$site['site_name']}} -
+            @if(is_array($title))
+                @foreach($title as $t)
+                    {{$t}}
+                    @if(!$loop->last)
+                        /
+                    @endif
+                @endforeach
+            @else
+                {{$title}}
+            @endif
+        </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,19 +27,16 @@
     <body>
     <nav class="navbar justify-content-between flex-nowrap flex-row" id="navbar-top">
             <div class="container-fluid">
-                <!--<a href="/" class="navbar-brand float-left"><img src="{{asset('assets/imgs/logo.svg')}}"></a>-->
                 @if(Request::segment(1) == "")
                     <a href="{{route('index')}}" class="navbar-brand float-left">
-                        <b>Otthonom</b>
+                        <img class="logo" src="{{asset('assets/imgs/remote.svg')}}" title="{{$site['site_name']}} " alt="{{$site['site_name']}} ">
                     </a>
                 @else
                     <a href="javascript:window.history.back();" class="navbar-brand float-left">
                         <b><i class="fa fa-arrow-left"></i></b>
                     </a>
-                    @if (!empty($currentRoom))
-                        <b>{{$currentRoom->name}}</b>
-                    @elseif(!empty($currentType))
-                        <b>{{$currentType->display_name}}</b>
+                    @if(isset($centerTitle) && !empty($centerTitle))
+                        <span class="center-title">{{$centerTitle}}</span>
                     @endif
                 @endif
                 <ul class="nav navbar-nav flex-row float-right">
@@ -37,8 +45,8 @@
                             <i class="fa fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="topnavDropdown">
-                            <a class="dropdown-item" href="{{route('admin')}}"><i class="fa fa-user-shield"></i> Admin</a>
-                            <a class="dropdown-item" href="{{route('logout')}}"><i class="fa fa-power-off"></i> Kijelentkezés</a>
+                            <a class="dropdown-item" href="{{route('admin')}}"><i class="fa fa-user-shield"></i> {{ucfirst(Lang::get('admin.admin'))}}</a>
+                            <a class="dropdown-item" href="{{route('logout')}}"><i class="fa fa-power-off"></i> {{ucfirst(Lang::get('auth.logout'))}}</a>
                         </div>
                     </li>
                 </ul>
@@ -50,23 +58,24 @@
 
         <nav class="navbar fixed-bottom justify-content-between flex-nowrap flex-row z-depth-1" id="navbar-bottom">
             <ul class="nav navbar-nav flex-row mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{route('index')}}" data-toggle="tooltip" data-placement="top" title="Főoldal">
+                <li class="nav-item">
+                    <a class="nav-link @if(Route::current()->getName() == 'index')active @endif" href="{{route('index')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('index.homepage'))}}">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('favorites')}}" data-toggle="tooltip" data-placement="top" title="Kedvencek">
+                    <a class="nav-link @if(Route::current()->getName() == 'favorites')active @endif" href="{{route('favorites')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('favorite.favorites'))}}">
                         <i class="far fa-heart"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin')}}" data-toggle="tooltip" data-placement="top" title="Adminisztráció">
+                    <a class="nav-link" href="{{route('settings')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('common.settings'))}}">
                         <i class="fas fa-cog"></i>
                     </a>
                 </li>
             </ul>
         </nav>
+
         <script src="{{asset('assets/mdbootstrap/js/popper.min.js')}}"></script>
         <script src="{{asset('assets/mdbootstrap/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('assets/mdbootstrap/js/mdb.min.js')}}"></script>

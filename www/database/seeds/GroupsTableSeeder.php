@@ -40,5 +40,20 @@ class GroupsTableSeeder extends Seeder
             'icon_id' => '1',
             'name' => 'Test Group 2 Sub 2'
         ]);
+
+        Group::create([
+            'parent_id' => '-1',
+            'user_id' => '2',
+            'icon_id' => '1',
+            'name' => 'Guests Csoport'
+        ]);
+
+
+        Group::create([
+            'parent_id' => '4',
+            'user_id' => '1',
+            'icon_id' => '1',
+            'name' => 'Test Group 2 Sub 1 Sub 1'
+        ]);
     }
 }

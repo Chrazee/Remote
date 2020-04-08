@@ -13,27 +13,34 @@ class DevicesTypeTableSeeder extends Seeder
     public function run()
     {
         DeviceType::create([
-            'name' => 'lamp',
-            'display_name' => 'Lámpák',
-            'icon_id' => '1'
-        ]);
-
-        DeviceType::create([
-            'name' => 'thermometer',
-            'display_name' => 'Hőmérők',
-            'icon_id' => '3'
-        ]);
-
-        DeviceType::create([
-            'name' => 'switch',
-            'display_name' => 'Kapcsolók',
+            'name' => 'Lámpák',
             'icon_id' => '1',
+            'user_id' => '1',
         ]);
 
         DeviceType::create([
-            'name' => 'sensor',
-            'display_name' => 'Szenzorok',
-            'icon_id' => '1'
+            'name' => 'Hőmérők',
+            'icon_id' => '3',
+            'user_id' => '1',
+        ]);
+
+        DeviceType::create([
+            'name' => 'Kapcsolók',
+            'icon_id' => '1',
+            'user_id' => '1',
+        ]);
+
+        DeviceType::create([
+            'name' => 'Szenzorok',
+            'icon_id' => '1',
+            'user_id' => '1',
+        ]);
+
+
+        DeviceType::create([
+            'name' => 'Guests szenszorok',
+            'icon_id' => '1',
+            'user_id' => '2',
         ]);
     }
 }

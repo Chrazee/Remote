@@ -1,7 +1,4 @@
-@extends('layouts.admin')
-
-@section('id', 'Adminisztráció')
-@section('title', 'Csoport beállítások')
+@extends('layouts.admin', ['title' => $title])
 
 @section('content')
 <div class="row">
@@ -69,9 +66,9 @@
         });
     });
 </script>
-
 @include('admin.includes.group.modals.create')
-@include('admin.includes.group.modals.delete')
 @include('admin.includes.group.modals.update')
+@include('admin.includes.group.modals.delete')
+
 
 @endsection

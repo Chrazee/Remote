@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Device\SendRequest;
 use App\Device as Device;
+use App\Http\Requests\Device\SendRequest;
 use Module\Exceptions\ValidationException;
 use Module\Validators\StructureValidator;
 
@@ -21,14 +21,6 @@ class DeviceController extends Controller
                 ]
             ]);
         }
-        if($device->ip == null) {
-            return view('device', [
-                'error' => [
-                    'title' => 'Az eszközt nem sikerült betölteni!',
-                    'message' => 'Az eszközhöz nincs IP cím társítva.'
-                ]
-            ]);
-        }
 
         try {
             $moduleValidator = new StructureValidator($device->module->directory);
@@ -41,6 +33,7 @@ class DeviceController extends Controller
             ]);
         }
         return view('device', [
+            'title' => ['Eszközök', $device->name],
             'device' =>  $device,
             'directory' => $device->module->directory,
             'view' => $device->module->directory . ".View.View"

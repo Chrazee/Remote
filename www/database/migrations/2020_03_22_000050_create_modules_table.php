@@ -16,9 +16,9 @@ class CreateModulesTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->integer('id', true);
             $table->integer('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->string('directory')->unique();
-            $table->string('title');
+            $table->string('name');
             $table->text('description')->nullable();
             $table->tinyInteger('public')->default('0');
             $table->timestamps();

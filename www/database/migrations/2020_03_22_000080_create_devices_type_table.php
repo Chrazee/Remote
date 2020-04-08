@@ -15,10 +15,11 @@ class CreateDevicesTypeTable extends Migration
     {
         Schema::create('devices_type', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('name')->unique();
-            $table->string('display_name');
+            $table->integer('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->integer('icon_id')->index();
             $table->foreign('icon_id')->references('id')->on('devices_type_icon');
+            $table->string('name');
             $table->timestamps();
         });
     }

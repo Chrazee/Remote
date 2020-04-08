@@ -1,58 +1,39 @@
-<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-danger" role="document">
-        <div class="modal-content">
-            <div class="checkout-preloader-container d-none">
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-red-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
+@component('admin.components.modalForm')
+    @slot('id', 'delete')
+    @slot('color', 'danger')
+    @slot('preloaderColor', 'red')
+    @slot('header')
+        <p class="heading"><span class="name"></span> törlése</p>
+    @endslot
+    @slot('body')
+        <div class="row">
+            <div class="col-3">
+                <p class="text-center">
+                    <i class="fas fa-trash fa-4x"></i>
+                </p>
             </div>
-            <div class="modal-header">
-                <p class="heading"><span class="display_name"></span> törlése</p>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="white-text">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-3">
-                        <p class="text-center">
-                            <i class="fas fa-trash fa-4x"></i>
-                        </p>
-                    </div>
-                    <div class="col-9">
-                        <div class="alert error-bag" style="display:none">
-                            <ul></ul>
-                        </div>
-                        <p>Biztosan törlöd az eszközt?</p>
-                        <h2>
-                            <span class="badge">Azonosító: <span class="id"></span></span>
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-danger btn-block submit-btn">
-                    Törlés <i class="fas fa-trash ml-1"></i>
-                </button>
+            <div class="col-9">
+                @include('includes.alert.formAlert')
+                <p>Biztosan törlöd az eszközt?</p>
+                <h2>
+                    <span class="badge">Azonosító: <span class="id"></span></span>
+                </h2>
             </div>
         </div>
-    </div>
-</div>
+    @endslot
+    @slot('footer')
+        <button type="button" class="btn btn-outline-danger btn-block actions submit">
+            Törlés <i class="fas fa-trash ml-1"></i>
+        </button>
+    @endslot
+@endcomponent
+
 <script>
     $(document).ready(function() {
         var modal = "#modalDelete";
         var errorBag = modal + " .error-bag";
-        var btn = modal + " .submit-btn";
+        var btn = modal + " .actions.submit";
+        var refreshTime = 1500;
 
         // modal
         $('.actions .delete').click(function() {
@@ -61,7 +42,7 @@
             $(modal + " .display_name").html( $(this).attr('data-display_name'));
         });
         $(modal).on('hidden.bs.modal', function () {
-            clearErrorBag(errorBag);
+            clearErrorBag(errorBag, true);
         });
 
         // submit
@@ -76,26 +57,20 @@
                 beforeSend: function() {
                     showModalPreloader(modal);
                     setBtnDisabled(btn);
-                    clearErrorBag(errorBag);
+                    clearErrorBag(errorBag, true);
                 },
                 success:function(response) {
+                    hideModalPreloader(modal);
+                    setBtnDisabled(btn, true);
+                    printErrorBag(errorBag, 'success', response.message, null);
                     setTimeout(function() {
-                        hideModalPreloader(modal);
-                        setBtnDisabled(btn, false);
-                        if($.isEmptyObject(response.error)) {
-                            printErrorBag(errorBag, response.success, 'success');
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1500);
-                        } else {
-                            printErrorBag(errorBag, response.error, 'danger');
-                        }
-                    }, 500);
+                        location.reload();
+                    }, refreshTime);
                 },
                 error: function(xhr, status, error) {
                     hideModalPreloader(modal);
                     setBtnDisabled(btn, false);
-                    printErrorBag(errorBag, {error: xhr.status + ': ' + xhr.statusText}, 'danger');
+                    printErrorBag(errorBag, 'danger', xhr.responseJSON.message, xhr.responseJSON.errors);
                 }
             });
         });

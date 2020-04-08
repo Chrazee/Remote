@@ -16,15 +16,5 @@ class SiteTableSeeder extends Seeder
             'name'    => 'site_name',
             'value'    => 'Remote',
         ]);
-
-        Site::create([
-            'name'    => 'site_homepage_group_id',
-            'value'    => '-1',
-        ]);
-
-        Site::create([
-            'name'    => 'api_key',
-            'value'    => '',
-        ]);
     }
 }

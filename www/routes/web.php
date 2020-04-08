@@ -1,12 +1,12 @@
 <?php
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/', 'IndecController@index')->name('index');
+    Route::get('/', 'IndexController@index')->name('index');
 
     // Group & Type
     //Route::get('/group', function () { return redirect('/'); });
-    Route::get('/group/{id}', 'GroupController@showGroup')->name('group');
-    Route::get('/group/{id}/type/{type}', 'GroupController@showType')->name('group.type');
+    Route::get('/group/{id}', 'GroupController@show')->name('group');
+    Route::get('/group/{id}/type/{type}', 'GroupController@type')->name('group.type');
 
     // Device
     Route::get('/device/{id}', 'DeviceController@show')->name('device');
@@ -15,8 +15,11 @@ Route::group(['middleware' => ['auth']], function() {
     // Favorites
     Route::get('/favorites', 'FavoriteController@index')->name('favorites');
 
+    // Settings
+    Route::get('/settings', 'Setting\IndexController@index')->name('settings');
+
     // Admin
-    Route::get('/admin', 'Admin\MainController@index')->name(('admin'));
+    Route::get('/admin', 'Admin\IndexController@index')->name(('admin'));
         // general
         Route::get('/admin/general', 'Admin\GeneralController@index')->name('admin.general');
         Route::post('/admin/general/update', 'Admin\GeneralController@update')->name('admin.general.update');

@@ -1,9 +1,11 @@
 @extends('layouts.admin')
 
-@section('id', 'Adminisztráció')
-@section('title', 'Ikonok')
+@section('title', $title)
 
 @section('content')
+
+@include('includes.tesaser', ['icon' => '<i class="far fa-file-image"></i>', 'title' => $site_name_admin, 'subTitle' => $title])
+
 <div class="row">
     <div class="col-md-6 box">
         <a href="{{route('admin.iconDeviceType')}}">

@@ -16,23 +16,18 @@ class Create extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|string|unique:devices_type,name',
-            'display_name' => 'required|max:255',
-            'icon_id' => 'required|int'
+            'user_id' => 'required|int|exists:users,id',
+            'name' => 'required|string|max:255',
+            'icon_id' => 'required|int|exists:devices_type_icon,id',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Típus',
-            'display_name' => 'Megjelenített név',
+            'user_id' => 'Felhasználó',
+            'name' => 'Név',
             'icon_id' => 'Ikon'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json(['error' => $validator->errors()->all()]), 422);
     }
 }

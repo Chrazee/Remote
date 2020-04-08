@@ -16,7 +16,8 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-
+            'id' => 'required|int|exists:groups,id',
+            'user_id' => 'required|int|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
             'parent_id' => 'required|int',
@@ -27,16 +28,12 @@ class Update extends FormRequest
     public function attributes()
     {
         return [
+            'id' => 'Azonosító',
             'user_id' => 'Felhasználó',
             'name' => 'Név',
             'description' => 'Leírás',
             'parent_id' => 'Csoport',
             'icon_id' => 'Ikon',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json(['error' => $validator->errors()->all()]), 422);
     }
 }

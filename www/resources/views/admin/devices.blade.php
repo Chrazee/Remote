@@ -31,19 +31,32 @@
                             <tr>
                                 <th class="th-lg">Azonosító</th>
                                 <th class="th-lg">Név</th>
+                                <th class="th-lg">Felhasználó</th>
                                 <th class="th-lg">Csoport</th>
                                 <th class="th-lg">Típus</th>
-                                <th class="th-lg">IP cím</th>
+                                <th class="th-lg">Modul</th>
+                                <th class="th-lg">Protocol</th>
+                                <th class="th-lg">Cím</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($devices as $device)
-                                <tr data-id="{{$device->id}}" data-display_name="{{$device->display_name}}" data-group_id="{{$device->group->id}}" data-type_id="{{$device->type->id}}" data-ip="{{$device->ip}}">
-                                    <td><a href="{{route('device', $device->id)}}">{{$device->id}}</a></td>
-                                    <td>{{$device->display_name}}</td>
+                                <tr data-id="{{$device->id}}"
+                                    data-name="{{$device->name}}"
+                                    data-user_id="{{$device->user->id}}"
+                                    data-group_id="{{$device->group->id}}"
+                                    data-type_id="{{$device->type->id}}"
+                                    data-module_id="{{$device->module->id}}"
+                                    data-protocol_id="{{$device->protocol->id}}"
+                                    data-address="{{$device->address}}">
+                                    <td>{{$device->id}}</td>
+                                    <td>{{$device->name}}</td>
+                                    <td>{{$device->user->username}}</td>
                                     <td>{{$device->group->name}}</td>
-                                    <td>{{$device->type->display_name}} ({{$device->type->name}})</td>
-                                    <td>{{$device->ip}}</td>
+                                    <td>{{$device->type->name}}</td>
+                                    <td>{{$device->module->name}}</td>
+                                    <td>{{$device->protocol->name}}</td>
+                                    <td>{{$device->address}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -63,12 +76,14 @@
             $(this).addClass('tr-selected');
 
             $('.actions .delete').attr('data-id', id);
-            $('.actions .delete').attr('data-display_name', $(this).attr('data-display_name'));
+            $('.actions .delete').attr('data-name', $(this).attr('data-name'));
             $('.actions .edit').attr('data-id', id);
-            $('.actions .edit').attr('data-display_name', $(this).attr('data-display_name'));
+            $('.actions .edit').attr('data-name', $(this).attr('data-name'));
             $('.actions .edit').attr('data-group_id', $(this).attr('data-group_id'));
             $('.actions .edit').attr('data-type_id', $(this).attr('data-type_id'));
-            $('.actions .edit').attr('data-ip', $(this).attr('data-ip'));
+            $('.actions .edit').attr('data-module_id', $(this).attr('data-module_id'));
+            $('.actions .edit').attr('data-protocol_id', $(this).attr('data-protocol_id'));
+            $('.actions .edit').attr('data-address', $(this).attr('data-address'));
 
             setBtnDisabled('.actions .delete', false);
             setBtnDisabled('.actions .edit', false);

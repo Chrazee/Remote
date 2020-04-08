@@ -16,10 +16,10 @@ class Update extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|int',
-            'name' => 'required|max:255|string|unique:devices_type,name,' . $this->id,
-            'display_name' => 'required|max:255',
-            'icon_id' => 'required|int'
+            'id' => 'required|int|exists:devices_type,id',
+            'user_id' => 'required|int|exists:users,id',
+            'name' => 'required|string|max:255',
+            'icon_id' => 'required|int|exists:devices_type_icon,id',
         ];
     }
 
@@ -27,14 +27,9 @@ class Update extends FormRequest
     {
         return [
             'id' => 'Azonosító',
-            'name' => 'Típus',
-            'display_name' => 'Megjelenített név',
+            'user_id' => 'Felhasználó',
+            'name' => 'Név',
             'icon_id' => 'Ikon'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json(['error' => $validator->errors()->all()]), 422);
     }
 }

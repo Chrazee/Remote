@@ -1,6 +1,4 @@
-@extends('layouts.main')
-
-@section('title', 'Csoportok')
+@extends('layouts.main', ['title' => $title])
 
 @section('content')
     <div class="row">
@@ -12,60 +10,63 @@
                 </div>
             </div>
         @else
-            @if (count($subGroups) > 0)
+            @if ($group->child->count() > 0)
                 <div class="col-12">
-                    <h4>Alcsoportok</h4>
-                    <div class="row">
-                        @include('includes.group.card', ['groups' => $subGroups])
-                    </div>
+                    <h4>{{ucfirst(Lang::get('group.sub_groups'))}}</h4>
+                        @include('includes.group.card', ['groups' => $group->child])
                 </div>
             @endif
-
             <div class="col-12">
-                <h4>Eszközök</h4>
+                <h4>{{ucfirst(Lang::get('device.devices'))}}</h4>
             </div>
-            @if (count($devices) > 0)
-                <div class="col-12">
-                    <div class="row">
-                        @foreach($devices as $device)
+            <div class="col-12">
+                <div class="row">
+                    @php
+                        $devices_count = false;
+                    @endphp
+                    @foreach($types as $type)
+                        @if($type->devices->count() > 0)
+                            @php
+                                $devices_count = true;
+                            @endphp
                             <div class="col-6 col-sm-4 col-md-3 box">
                                 <div class="row">
                                     <div class="col-12 mb-2">
-                                        <a href="{{Request::url()}}/type/{{$device->deviceTypeId}}">
+                                        <a href="{{Request::url()}}/type/{{$type->id}}">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <img src="{{asset('assets/imgs/icons')}}/{{$device->iconName}}" class="img-fluid">
-                                                    <h5>{{$device->deviceTypeName}}</h5>
+                                                    <img src="{{asset('assets/imgs/icons')}}/{{$type->icon->name}}" class="img-fluid">
+                                                    <h5>{{$type->name}}</h5>
                                                     <p class="text-muted">
-                                                        {{$device->devices->count()}} eszköz
+                                                        {{$type->devices->count()}} {{Lang::get('device.device')}}
                                                     </p>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
-                                    @if($device->devices->count())
-                                        <div class="col-12">
-                                            @foreach($device->devices  as $d)
-                                                <a href="/device/{{$d->id}}">
-                                                    <div class="card box-devices">
-                                                        <div class="card-body">
-                                                            {{$d->display_name}}
-                                                        </div>
+                                    <div class="col-12">
+                                        @foreach($type->devices  as $device)
+                                            <a href="{{route('device', ['id' => $device->id])}}">
+                                                <div class="card box-devices">
+                                                    <div class="card-body">
+                                                        {{$device->name}}
                                                     </div>
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    @endif
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
+                        @endif
+                    @endforeach
+
+                    @if(!$devices_count)
+                        <div class="col-12">
+                            <a href="{{route('admin.devices')}}" class="btn btn-outline-secondary ml-0"><i class="fa fa-plus"></i> {{Lang::get('device.add')}}</a>
+                        </div>
+                    @endif
                 </div>
-            @else
-                <div class="col-12">
-                    <a href="#" class="btn btn-outline-secondary"><i class="fa fa-plus"></i> Eszköz hozzáadása</a>
-                </div>
-            @endif
+            </div>
         @endif
     </div>
 

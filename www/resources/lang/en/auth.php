@@ -16,5 +16,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many auth attempts. Please try again in :seconds seconds.',
     'success' => 'Login successful',
-    'redirect' => 'Redirecting'
+    'redirect' => 'Redirecting',
+    'login' => 'Log In',
+    'logout' => 'Log Out'
 ];

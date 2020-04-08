@@ -18,7 +18,7 @@ class IconController extends Controller
     function index()
     {
         return view('admin.icons', [
-            'site_name' => Site::get('site_name'),
+            'title' => 'Ikonok',
         ]);
     }
 
@@ -27,7 +27,7 @@ class IconController extends Controller
         $icons =  DevicesTypeIcon::all()->sortByDesc('updated_at')->sortByDesc('default');
 
         return view('admin.iconsDeviceType', [
-            'site_name' => Site::get('site_name'),
+            'title' => ['Ikonok', 'Eszköz-típus ikonok'],
             'icons' =>  $icons,
             'fileTpyes' => $this->fileTpyes
         ]);
@@ -38,7 +38,7 @@ class IconController extends Controller
         $icons =  GroupsIcon::all()->sortByDesc('updated_at');
 
         return view('admin.iconsGroup', [
-            'site_name' => Site::get('site_name'),
+            'title' => ['Ikonok', 'Csoport ikonok'],
             'icons' =>  $icons,
             'fileTpyes' => $this->fileTpyes
         ]);

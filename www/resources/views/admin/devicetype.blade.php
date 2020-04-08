@@ -30,18 +30,21 @@
                         <thead>
                             <tr>
                                 <th class="th-lg">Azonosító</th>
-                                <th class="th-lg">Típus</th>
-                                <th class="th-lg">Megjelenített név</th>
+                                <th class="th-lg">Név</th>
+                                <th class="th-lg">Felhasználó</th>
                                 <th class="th-lg">Ikon</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (!empty($deviceTypes))
                                 @foreach($deviceTypes as $deviceType)
-                                    <tr data-id="{{$deviceType->id}}" data-name="{{$deviceType->name}}" data-display_name="{{$deviceType->display_name}}" data-icon_id="{{$deviceType->icon->id}}" data-default_icon_id="{{$defaultIcon->id}}">
+                                    <tr data-id="{{$deviceType->id}}"
+                                        data-name="{{$deviceType->name}}"
+                                        data-icon_id="{{$deviceType->display_name}}"
+                                        data-user_id="{{$deviceType->icon->id}}">
                                         <td>{{$deviceType->id}}</td>
                                         <td>{{$deviceType->name}}</td>
-                                        <td>{{$deviceType->display_name}}</td>
+                                        <td>{{$deviceType->user->username}}</td>
                                         <td><img src="{{asset('assets/imgs/icons')}}/{{$deviceType->icon->name}}"></td>
                                     </tr>
                                 @endforeach
@@ -63,12 +66,11 @@
             $(this).addClass('tr-selected');
 
             $('.actions .delete').attr('data-id', id);
-            $('.actions .delete').attr('data-display_name', $(this).attr('data-display_name'));
+            $('.actions .delete').attr('data-name', $(this).attr('data-name'));
             $('.actions .edit').attr('data-id', id);
             $('.actions .edit').attr('data-name', $(this).attr('data-name'));
-            $('.actions .edit').attr('data-display_name', $(this).attr('data-display_name'));
             $('.actions .edit').attr('data-icon_id', $(this).attr('data-icon_id'));
-            $('.actions .edit').attr('data-default_icon_id', $(this).attr('data-default_icon_id'));
+            $('.actions .edit').attr('data-user_id', $(this).attr('data-user_id'));
 
             setBtnDisabled('.actions .delete', false);
             setBtnDisabled('.actions .edit', false);

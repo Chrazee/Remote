@@ -1,11 +1,11 @@
-@extends('layouts.admin')
-
-@section('id', 'Adminisztráció')
-@section('title', 'Főoldal')
+@extends('layouts.admin', ['title' => 'Főoldal'])
 
 @section('content')
+
+@include('includes.tesaser', ['icon' => '<i class="fa fa-user-shield"></i>', 'title' => $title])
+
 <div class="row">
-    <div class="col-md-6 box">
+    <div class="col-md-12 box">
         <a href="{{route('admin.general')}}">
             <div class="card text-center">
                 <div class="card-body">
@@ -16,7 +16,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-6 box">
+    <div class="col-md-12 box">
         <a href="{{route('admin.group')}}">
             <div class="card text-center">
                 <div class="card-body">
@@ -49,7 +49,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-6 box">
+    <div class="col-md-12 box">
         <a href="{{route('admin.modules')}}">
             <div class="card text-center">
                 <div class="card-body">
@@ -60,7 +60,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-6 box">
+    <div class="col-md-12 box">
         <a href="{{route('admin.icons')}}">
             <div class="card text-center">
                 <div class="card-body">

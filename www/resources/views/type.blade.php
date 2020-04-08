@@ -1,31 +1,15 @@
-@extends('layouts.main')
-
-@section('title', 'Szobák')
+@extends('layouts.main', ['title' => $title])
 
 @section('content')
-<div class="row">
     @if (!$validType)
-            <div class="col-12">
-                <div class="alert alert-info text-center">
-                    <h5>{{$error['title']}}</h5>
-                    <p>{{$error['message']}}</p>
-                </div>
-            </div>
+        @alert(['type' => 'warning', 'align' => 'center', 'title' => $error['title'], 'message' => $error['message']])
+        @endalert
     @else
-        <div class="col-12">
-            <h4>Eszközök</h4>
-        </div>
-        @foreach($devices as $device)
-            <div class="col-6 col-sm-4 col-md-3 box">
-                <a href="/device/{{$device->id}}">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>{{$device->display_name}}</h5>
-                        </div>
-                    </div>
-                </a>
+        <div class="row">
+            <div class="col-12">
+                <h4>{{ucfirst(Lang::get('device.devices'))}}</h4>
             </div>
-        @endforeach
+        </div>
+        @include('includes.device.card', ['devices' => $deviceType->devices])
     @endif
-</div>
 @endsection

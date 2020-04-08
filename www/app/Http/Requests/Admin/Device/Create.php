@@ -17,9 +17,12 @@ class Create extends FormRequest
     {
         return [
             'user_id' => 'required|int|exists:users,id',
-            'display_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'group_id' => 'required|int|exists:groups,id',
             'type_id' => 'required|int|exists:devices_type,id',
+            'module_id' => 'required|int|exists:modules,id',
+            'protocol_id' => 'required|int|exists:protocols,id',
+            'address' => 'required|string|max:255',
         ];
     }
 
@@ -27,14 +30,12 @@ class Create extends FormRequest
     {
         return [
             'user_id' => 'Felhasználó',
-            'display_name' => 'Név',
+            'name' => 'Név',
             'group_id' => 'Csoport',
             'type_id' => 'Típus',
+            'module_id' => 'Modul',
+            'protocol_id' => 'protocol',
+            'address' => 'Cím',
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json(['error' => $validator->errors()->all()]), 422);
     }
 }

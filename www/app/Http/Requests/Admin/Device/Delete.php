@@ -26,9 +26,4 @@ class Delete extends FormRequest
             'id' => 'Azonosító'
         ];
     }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json(['error' => $validator->errors()->all()]), 422);
-    }
 }

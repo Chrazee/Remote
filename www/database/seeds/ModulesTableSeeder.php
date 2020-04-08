@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Module;
-use Illuminate\Support\Str;
 
 class ModulesTableSeeder extends Seeder
 {
@@ -16,7 +15,7 @@ class ModulesTableSeeder extends Seeder
         Module::create([
             'user_id' => '1',
             'directory' => 'fIGEaTSTZXjexYZb',
-            'title' => 'Thermometer Controller',
+            'name' => 'Thermometer Controller',
             'description' => 'Thermometer Controller Description'
 
         ]);
@@ -24,7 +23,7 @@ class ModulesTableSeeder extends Seeder
         Module::create([
             'user_id' => '1',
             'directory' => 'r74YL4qbEzvZb2Bk',
-            'title' => 'Test',
+            'name' => 'Test',
             'description' => 'Not valid content'
         ]);
     }

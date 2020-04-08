@@ -1,6 +1,7 @@
 /*
     Colors:
         Primary: #553895 (85, 56, 149)
+            Darken: 5d38af
         Secondary: #86469c (134,70,156)
 
  */
@@ -11,10 +12,11 @@
 }
 
 body {
-    font-family: montserrat, arial, verdana;
+    font-family: montserrat, arial, verdana, serif;
     background: #f5f7fa;
 }
 
+/* link */
 a {
     color: #bbb;
 }
@@ -23,6 +25,7 @@ a:hover, a:active, a:focus {
     text-decoration: none;
 }
 
+/* button */
 .bg-primary {
     background-color: #1269DB !important;
 }
@@ -39,7 +42,36 @@ a:hover, a:active, a:focus {
     background-color: #86469c !important;
 }
 
-/* TEEASER */
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #5d38af !important;
+}
+
+.btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #5d38af !important;
+}
+/* logo */
+.logo {
+    width: 100px;
+}
+/* form */
+.md-form input:not([type]):focus:not([readonly]), .md-form input[type=date]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly]), .md-form input[type=datetime]:not(.browser-default):focus:not([readonly]), .md-form input[type=email]:not(.browser-default):focus:not([readonly]), .md-form input[type=number]:not(.browser-default):focus:not([readonly]), .md-form input[type=password]:not(.browser-default):focus:not([readonly]), .md-form input[type=search-md]:focus:not([readonly]), .md-form input[type=search]:not(.browser-default):focus:not([readonly]), .md-form input[type=tel]:not(.browser-default):focus:not([readonly]), .md-form input[type=text]:not(.browser-default):focus:not([readonly]), .md-form input[type=time]:not(.browser-default):focus:not([readonly]), .md-form input[type=url]:not(.browser-default):focus:not([readonly]), .md-form textarea.md-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #553895;
+    box-shadow: 0 1px 0 0 #553895;
+}
+
+.md-form input:not([type]):focus:not([readonly])+label, .md-form input[type=date]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=email]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=number]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=password]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=search-md]:focus:not([readonly])+label, .md-form input[type=search]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=tel]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=text]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=time]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=url]:not(.browser-default):focus:not([readonly])+label, .md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #553895 !important;
+}
+
+.md-form input:not([type]):focus:not([readonly])+label, .md-form input[type=date]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=datetime]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=email]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=number]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=password]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=search-md]:focus:not([readonly])+label, .md-form input[type=search]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=tel]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=text]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=time]:not(.browser-default):focus:not([readonly])+label, .md-form input[type=url]:not(.browser-default):focus:not([readonly])+label, .md-form textarea.md-textarea:focus:not([readonly])+label {
+    color: #553895 !important;
+}
+
+.md-form .prefix.active, .md-form.md-outline input[type=date]:focus:not([readonly])+label, .md-form.md-outline input[type=datetime-local]:focus:not([readonly])+label, .md-form.md-outline input[type=email]:focus:not([readonly])+label, .md-form.md-outline input[type=number]:focus:not([readonly])+label, .md-form.md-outline input[type=password]:focus:not([readonly])+label, .md-form.md-outline input[type=search-md]:focus:not([readonly])+label, .md-form.md-outline input[type=search]:focus:not([readonly])+label, .md-form.md-outline input[type=tel]:focus:not([readonly])+label, .md-form.md-outline input[type=text]:focus:not([readonly])+label, .md-form.md-outline input[type=time]:focus:not([readonly])+label, .md-form.md-outline input[type=url]:focus:not([readonly])+label, .md-form.md-outline textarea.md-textarea:focus:not([readonly])+label  {
+    color: #553895 !important;
+}
+
+/* teaser */
 .teaser {
     background: linear-gradient(90deg, rgba(134,70,156,1) 0%, rgba(85,56,149,1) 100%);
     color: #fff;
@@ -55,6 +87,10 @@ a:hover, a:active, a:focus {
     margin-bottom: 0px;
 }
 
+.teaser-left h1 img {
+    width: 50px;
+}
+
 .teaser-right {
     text-align: left;
 }
@@ -63,7 +99,7 @@ a:hover, a:active, a:focus {
     color: rgba(255,255,255,0.4);
 }
 
-/* BOX */
+/* box */
 .box {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -163,26 +199,6 @@ a:hover, a:active, a:focus {
     left: 11px;
 }
 
-/* button circle */
-.btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
-}
-
-.btn-circle {
-    width: 30px;
-    height: 30px;
-    padding: 6px 0px;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-}
-
 /* content */
 #content {
     padding-top: 20px;
@@ -190,7 +206,6 @@ a:hover, a:active, a:focus {
     background: #f5f7fa;
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(245,247,250,1) 100%);
 }
-
 
 /* top navbar*/
 #navbar-top {
@@ -212,6 +227,11 @@ a:hover, a:active, a:focus {
     border-radius: 0;
 }
 
+#navbar-top .center-title {
+    color: #553895;
+    font-size: 1.3em;
+    font-weight: 600;
+}
 
 /* bottom navbar */
 #navbar-bottom {
@@ -241,11 +261,11 @@ a:hover, a:active, a:focus {
 }
 
 #navbar-bottom .nav-link:focus, #navbar-bottom .nav-link:hover {
-    color: rgba(46, 46, 46, 0.8)
+    color: #86469c
 }
 
-#navbar-bottom .nav-item.active{
-    color: rgba(46, 46, 46, 0.8);
+#navbar-bottom .nav-link.active {
+    color: #86469c;
 }
 
 /* alerts */
@@ -286,6 +306,10 @@ a:hover, a:active, a:focus {
 .alert-header .icon {
     font-size: 1.5em;
     margin-right: 10px;
+}
+
+.alert-header .icon i {
+    color: #fff !important;
 }
 
 ul.errors {

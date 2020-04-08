@@ -3,48 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\DeviceType;
-use Illuminate\Support\Facades\DB;
 use App\Group as Group;
-use App\Device as Device;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+
 
 class GroupController extends Controller
 {
-    function showGroup($id)
+    function show($id)
     {
-        /*$deviceTypes = DeviceType::with(['icon', 'devices', 'devices.group'])->where('devices.group.group_id', "=", '1')->get();
-        $deviceTypes = Group::with(['types'])->find(1);
-        dd($deviceTypes);
-        */
+        $userId =  Auth::user()->id;
+        $deviceLimit = 3;
+        $group = Group::with(['child'])->where('user_id', $userId)->find($id);
 
-        $group = Group::find($id);
+        $types = DeviceType::with(['icon', 'devices' => function($q) use ($deviceLimit, $id) {
+            $q->where('devices.group_id', $id)->limit($deviceLimit);
+        }])->where('user_id', $userId)->get();
 
         if($group) {
-            $devices = DB::table('devices')
-                ->join('devices_type', 'devices_type.id', '=', 'devices.type_id')
-                ->join('devices_type_icon', 'devices_type_icon.id', '=', 'devices_type.icon_id')
-                ->select(DB::raw('devices.type_id AS deviceTypeId,devices_type.display_name AS deviceTypeName, devices_type_icon.name AS iconName'
-                ))
-                ->where('group_id', $group->id)
-                ->groupBy('devices.type_id')
-                ->groupBy('devices_type.display_name')
-                ->get();
-
-            foreach ($devices as $device) {
-                $device->devices = Device::where('type_id', '=', $device->deviceTypeId)->limit(3)->get();
-            }
-
             $data = [
+                'title' => [$group->name],
+                'centerTitle' => $group->name,
+                'group' => $group,
+                'types' => $types,
+                'devicesCount' => $group->devices_count,
                 'validGroup' => true,
                 'currentGroup' => $group,
-                'devices' => $devices,
-                'subGroups' => $group->childs
             ];
         } else {
             $data = [
                 'validGroup' => false,
+                'title' => Lang::get('group.not_found_title'),
                 'error' => [
-                    'title' => "A csoport nem található!",
-                    'message' => "A megadott azonosítóval nincsen csoport a rendszerben."
+                    'title' => Lang::get('group.not_found_title'),
+                    'message' => Lang::get('group.not_found_message')
                 ]
             ];
         }
@@ -52,28 +44,35 @@ class GroupController extends Controller
         return view('group', $data);
     }
 
-    function showType($id, $type)
+    function type($id, $type)
     {
-        $group = Group::find($id);
+        $userId =  Auth::user()->id;
+        $group = Group::where('user_id', $userId)->find($id);
+
         if($group) {
-            $DeviceType = DeviceType::find($type);
-            if($DeviceType) {
+            $deviceType = DeviceType::with(['icon', 'devices' => function($q) use ($userId) {
+                $q->where('devices.group_id', $userId);
+            }])->find($type);
+
+            if($deviceType) {
                 $data = [
+                    'title' => [$group->name, $deviceType->name],
+                    'centerTitle' => $deviceType->name,
                     'validType' => true,
-                    'currentType' => $DeviceType,
-                    'devices' => Device::getGroupDevices($id, $type)
+                    'deviceType' => $deviceType
                 ];
             } else {
                 $data = [
                     'validType' => false,
+                    'title' => Lang::get('deviceType.not_found_title'),
                     'error' => [
-                        'title' => "Az eszköz típus nem található!",
-                        'message' => "A megadott azonosítóval nincsen ilyen eszköz típus a rendszerben."
+                        'title' =>  Lang::get('deviceType.not_found_title'),
+                        'message' =>  Lang::get('deviceType.not_found_message'),
                     ]
                 ];
             }
         } else {
-            return redirect()->to("group/{$id}");
+            return redirect()->to(route('group', ['id' => $id]));
         }
 
         return view('type', $data);

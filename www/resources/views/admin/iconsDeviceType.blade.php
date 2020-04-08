@@ -1,9 +1,9 @@
-@extends('layouts.admin')
-
-@section('id', 'Adminisztráció')
-@section('title', 'Eszköz típus ikonok')
+@extends('layouts.admin', ['title' => $title])
 
 @section('content')
+
+    @include('includes.tesaser', ['icon' => '<i class="far fa-file-image"></i>', 'title' => $site_name_admin, 'subTitle' => $title])
+
 <div class="row">
     <div class="col-md-12 mt-4">
         <div class="card">

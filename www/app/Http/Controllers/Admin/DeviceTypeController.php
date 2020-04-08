@@ -14,12 +14,12 @@ class DeviceTypeController extends Controller
 {
     function index()
     {
-        $deviceTypes = DeviceType::with('icon')->get();
+        $deviceTypes = DeviceType::with(['user', 'icon'])->get();
         $icons =  DevicesTypeIcon::where('default', '0')->get();
         $defaultIcon = DevicesTypeIcon::where('default', '1')->first();
 
         return view('admin.devicetype', [
-            'site_name' => Site::get('site_name'),
+            'title' => ['Eszközök', 'Típusok'],
             'deviceTypes' => $deviceTypes,
             'icons' => $icons,
             'defaultIcon' => $defaultIcon
@@ -27,20 +27,20 @@ class DeviceTypeController extends Controller
     }
 
     function create(Create $request) {
-        $request->validated();
-        DeviceType::create($request->all());
-        return response()->json(['success' => ['Az eszköz-típus sikeresen létrehozva!']]);
+        $validated = $request->validated();
+        DeviceType::create($validated);
+        return response()->json(['message' => ['Az eszköz-típus sikeresen létrehozva!']]);
     }
 
     function delete(Delete $request) {
-        $request->validated();
-        DeviceType::findOrFail($request->input('id'))->delete();
-        return response()->json(['success' => ['Az eszköz-típus sikeresen törölve!']]);
+        $validated = $request->validated();
+        DeviceType::findOrFail($validated['id'])->delete();
+        return response()->json(['message' => ['Az eszköz-típus sikeresen törölve!']]);
     }
 
     function update(Update $request) {
-        $request->validated();
-        DeviceType::findOrFail($request->input('id'))->update($request->all());
-        return response()->json(['success' => ['Az eszköz-típus sikeresen módosítva!']]);
+        $validated = $request->validated();
+        DeviceType::findOrFail($validated['id'])->update($request->all());
+        return response()->json(['message' => ['Az eszköz-típus sikeresen módosítva!']]);
     }
 }
