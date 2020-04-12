@@ -13,7 +13,7 @@
                 </p>
             </div>
             <div class="col-9">
-                @include('includes.alert.formAlert')
+                @include('includes.form.errorBag.blade.php')
                 <p>Biztosan törlöd az eszköz-típust?</p>
                 <h2>
                     <span class="badge">Azonosító: <span class="id"></span></span>

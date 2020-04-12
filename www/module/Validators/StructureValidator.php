@@ -15,7 +15,7 @@ class StructureValidator extends Validator {
     }
 
     protected function validateController() {
-        if(!Storage::disk('module')->exists($this->directoryName . "/Controller/Controller.php")) {
+        if(!Storage::disk('module')->exists($this->directoryName . "/Controller/SettingController.php")) {
             $this->failed('The Controller file does not exists.');
         }
         return true;

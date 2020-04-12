@@ -30,7 +30,7 @@
                                     <img class="group-tree-icon" src="{{asset('assets/imgs/icons')}}/{{$i->icon->name}}">
                                 </a>
                                 @if(count($i->childs))
-                                    @include('admin.includes.group.childList',['childs' => $i->childs])
+                                    @include('includes.group.childList',['childs' => $i->childs])
                                 @endif
                             </li>
                         @endforeach

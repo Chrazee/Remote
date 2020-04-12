@@ -16,11 +16,9 @@ class DatabaseSeeder extends Seeder
         Eloquent::unguard();
         $this->call(SiteTableSeeder::class);
         $this->call(UsersTablesSeeder::class);
-        $this->call(GroupsIconTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
         $this->call(UserSettingsTableSeeder::class);
         $this->call(ModulesTableSeeder::class);
-        $this->call(DevicesTypeIconTableSeeder::class);
         $this->call(DevicesTypeTableSeeder::class);
         $this->call(ProtocolsTableSeeder::class);
         $this->call(DevicesTableSeeder::class);

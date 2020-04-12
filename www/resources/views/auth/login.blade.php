@@ -17,12 +17,12 @@
             <div class="row h-100 align-items-center min-vh-100 m-0 py-5 d-flex flex-column justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header bg-secondary text-center">
+                        <div class="card-header bg-primary text-center">
                             <img src="{{asset('assets/imgs/remote_white.svg')}}" class="logo">
                         </div>
                         <div class="card-body">
                             <form id="loginForm">
-                                @include('includes.alert.formAlert')
+                                @include('includes.errorBag')
                                 <div class="md-form pb-1">
                                     <i class="fa fa-user prefix"></i>
                                     <input type="text" id="username" name="username" class="form-control" autofocus>

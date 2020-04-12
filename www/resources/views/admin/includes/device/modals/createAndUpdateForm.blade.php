@@ -1,5 +1,5 @@
 <form>
-    @include('includes.alert.formAlert')
+    @include('includes.form.errorBag.blade.php')
     <div class="form-group mb-4">
         <input type="text" name="name" class="form-control" placeholder="Név">
     </div>

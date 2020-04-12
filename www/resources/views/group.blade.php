@@ -35,7 +35,6 @@
                                         <a href="{{Request::url()}}/type/{{$type->id}}">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <img src="{{asset('assets/imgs/icons')}}/{{$type->icon->name}}" class="img-fluid">
                                                     <h5>{{$type->name}}</h5>
                                                     <p class="text-muted">
                                                         {{$type->devices->count()}} {{Lang::get('device.device')}}

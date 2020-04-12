@@ -18,8 +18,6 @@ class CreateGroupsTable extends Migration
             $table->integer('parent_id');
             $table->integer('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('icon_id')->index();
-            $table->foreign('icon_id')->references('id')->on('groups_icon');
             $table->string('name');
             $table->string('description')->nullable();
             $table->timestamps();

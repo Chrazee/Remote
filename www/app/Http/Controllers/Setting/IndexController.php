@@ -12,8 +12,8 @@ class IndexController extends Controller
 {
     function index()
     {
-        return view('index', [
-            'title' => ucfirst(Lang::get('setting.settings')),
+        return view('setting.index', [
+            'title' => ucfirst(Lang::get('common.settings')),
         ]);
     }
 }

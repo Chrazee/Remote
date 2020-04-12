@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\UserSetting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\ServiceProvider;
@@ -38,7 +40,16 @@ class AppServiceProvider extends ServiceProvider
             return $view->with('site_name_admin', $site_name_admin);
         });
 
-        Blade::component('components.alert', 'alert');
+        if (Auth::check())
+        {
+            view()->composer('*', function ($view) {
+                $userSetting =  UserSetting::where('user_id', Auth::user()->id);
+                return $view->with('userSetting', $userSetting);
+            });
+        }
 
+        Blade::component('components.alert', 'alert');
+        Blade::component('components.breadcrumb', 'breadcrumb');
+        Blade::component('components.button', 'button');
     }
 }

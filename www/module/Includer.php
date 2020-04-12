@@ -12,7 +12,7 @@ class Includer
     public function __construct($fromDirectory)
     {
 
-        $this->controller = base_path('module/Storage/' . $fromDirectory. '/Controller/Controller.php');
+        $this->controller = base_path('module/Storage/' . $fromDirectory. '/Controller/SettingController.php');
         $allowedNamespace = "namespace Module\Storage\{$fromDirectory}\Controller;";
 
 

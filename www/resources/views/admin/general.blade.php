@@ -10,7 +10,7 @@
             <div class="card-body">
                 <h5 class="card-title">Oldal</h5>
                 <form id="generalForm">
-                    @include('includes.alert.formAlert')
+                    @include('includes.form.errorBag.blade.php')
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="site_name">Oldal neve</label>
