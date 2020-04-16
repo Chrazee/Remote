@@ -6,14 +6,22 @@ use App\Device as Device;
 use App\DeviceType;
 use App\Group;
 use App\Http\Requests\Device\SendRequest;
+use App\User;
 use App\UserSetting;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Module\Controllers\RequestController;
 use Module\Exceptions\ValidationException;
 use Module\Validators\StructureValidator;
 
 class MainController extends Controller
 {
+    private $title;
+    public function __construct() {
+        $this->title = [];
+    }
+
     function index()
     {
         $deviceCount = Device::where('user_id', Auth::user()->id)->count();
@@ -23,8 +31,8 @@ class MainController extends Controller
             ->where('parent_id', '-1')
             ->get();
 
-        return view('index', [
-            'title' => ucfirst(Lang::get('index.homepage')),
+        return view('home', [
+            'title' => ucfirst(Lang::get('common.homepage')),
             'deviceCount' => $deviceCount,
             'groups' => $groups
         ]);
@@ -35,44 +43,21 @@ class MainController extends Controller
         $userId =  Auth::user()->id;
         $deviceLimit = 3;
         $group = Group::with(['child'])->where('user_id', $userId)->findOrFail($id);
-
         $types = DeviceType::with(['devices' => function($q) use ($deviceLimit, $id) {
             $q->where('devices.group_id', $id)->limit($deviceLimit);
         }])->where('user_id', $userId)->get();
 
-        if($group) {
-            $data = [
-                'title' => [$group->name],
-                'centerTitle' => $group->name,
-                'group' => $group,
-                'types' => $types,
-                'devicesCount' => $group->devices_count,
-                'validGroup' => true,
-                'currentGroup' => $group,
-            ];
-        } else {
-            $data = [
-                'validGroup' => false,
-                'title' => Lang::get('group.not_found_title'),
-                'error' => [
-                    'title' => Lang::get('group.not_found_title'),
-                    'message' => Lang::get('group.not_found_message')
-                ]
-            ];
-        }
+        $this->title[] = [
+            'name' => $group->name,
+        ];
 
-        return view('group', $data);
-    }
-
-    function groups()
-    {
-        abort(404);
-        /*$userId =  Auth::user()->id;
-        $group = Group::with()->where('user_id', $userId)->get()
-
-
-        return view('group', $data);
-        */
+        return view('group', [
+            'title' => $this->title,
+            'group' => $group,
+            'types' => $types,
+            'devicesCount' => $group->devices_count,
+            'currentGroup' => $group,
+        ]);
     }
 
     function type($id, $type)
@@ -80,33 +65,21 @@ class MainController extends Controller
         $userId =  Auth::user()->id;
         $group = Group::where('user_id', $userId)->findOrFail($id);
 
-        if($group) {
-            $deviceType = DeviceType::with(['devices' => function($q) use ($userId) {
-                $q->where('devices.group_id', $userId);
-            }])->findOrFail($type);
+        $deviceType = DeviceType::with(['devices' => function($q) use ($userId) {
+            $q->where('devices.group_id', $userId);
+        }])->findOrFail($type);
 
-            if($deviceType) {
-                $data = [
-                    'title' => [$group->name, $deviceType->name],
-                    'centerTitle' => $deviceType->name,
-                    'validType' => true,
-                    'deviceType' => $deviceType
-                ];
-            } else {
-                $data = [
-                    'validType' => false,
-                    'title' => Lang::get('deviceType.not_found_title'),
-                    'error' => [
-                        'title' =>  Lang::get('deviceType.not_found_title'),
-                        'message' =>  Lang::get('deviceType.not_found_message'),
-                    ]
-                ];
-            }
-        } else {
-            return redirect()->to(route('group', ['id' => $id]));
-        }
+        $this->title[] = [
+            'name' => $group->name,
+        ];
+        $this->title[] = [
+            'name' => $deviceType->name,
+        ];
 
-        return view('type', $data);
+        return view('type', [
+            'title' =>  $this->title,
+            'deviceType' => $deviceType
+        ]);
     }
 
     function favorite()
@@ -122,7 +95,7 @@ class MainController extends Controller
         }
 
         return view('favorite', [
-            'title' => ucfirst(Lang::get('favorite.favorites')),
+            'title' => ucfirst(Lang::get('common.favorites')),
             'favorite' => $favorite,
             'devices' => $devices
         ]);
@@ -130,43 +103,57 @@ class MainController extends Controller
 
     function device($id)
     {
-        $device =  Device::with(['type','module'])->findOrFail($id);
+        $device =  Device::with(['type','module', 'protocol'])->findOrFail($id);
+        $user = User::findorFail(Auth::user()->id);
 
-        if(!$device) {
-            return view('device', [
-                'error' => [
-                    'title' => 'Az eszköz nem található!',
-                    'message' => 'A megadott azonosítóval az eszköz nem található a rendszerben.'
-                ]
-            ]);
-        }
+
+        $this->title[] = [
+            'name' => Lang::get('common.devices'),
+        ];
+        $this->title[] = [
+            'name' => $device->name,
+        ];
 
         try {
             $moduleValidator = new StructureValidator($device->module->directory);
         } catch (ValidationException $e) {
             return view('device', [
+                'title' => $this->title,
                 'error' => [
-                    'title' => 'Az eszközt nem sikerült betölteni!',
+                    'title' => Lang::get('common.can_not_load_the_device'),
                     'message' => $e->getTitle() . ' ('.$e->getHttpStatusCode().'): ' . $e->getMessage()
                 ]
             ]);
         }
+
+        $directory = $device->module->directory;
+        $viewPath =  $device->module->directory. "/" . env('MODULE_VIEW');
+
+        $data = json_encode([
+            '_token' => csrf_token(),
+            'device' =>   [
+                'id' => $device->id,
+                'address' => $device->address,
+                'protocol' => $device->protocol->name
+            ],
+            'directory' => $directory,
+            'token' => $user->device_token,
+            'action' => 'get',
+            'parameters' => [],
+        ]);
+
         return view('device', [
-            'title' => ['Eszközök', $device->name],
-            'device' =>  $device,
-            'directory' => $device->module->directory,
-            'view' => $device->module->directory . ".View.View"
+            'title' => $this->title,
+            'deviceName' =>  $device->name,
+            "data" => $data,
+            'view' => $viewPath,
         ]);
     }
 
-    function request(SendRequest $request) {
-        $action = $request->input('action');
-        $device = unserialize($request->input('device'));
-        $parameters = json_decode($request->input('parameters'));
-        $directory = $request->input('directory');
+    function deviceRequest(Request $request) {
+        $data = $request->except('_token');
 
-        $moduleClass = 'Module\Storage\\' . $directory . '\Controller\\' . 'Controller';
-        $module = new $moduleClass();
-        $module->callAction($action, $device, $parameters);
+        $requestController = new RequestController();
+        $requestController->postRequest($data);
     }
 }

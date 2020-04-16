@@ -40,7 +40,10 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "module/"
+            "module/Connection",
+            "module/Controllers",
+            "module/Exceptions",
+            "module/Validators"
         ]
     },
     "autoload-dev": {

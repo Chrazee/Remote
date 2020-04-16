@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ModuleApp\Connection;
+namespace Module\Connection;
 
 use GuzzleHttp\Client;
 
@@ -17,7 +17,6 @@ class Connection
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/x-www-form-urlencoded'
                 ],
-                'verify' => false
             ]);
         }
         return self::$client;

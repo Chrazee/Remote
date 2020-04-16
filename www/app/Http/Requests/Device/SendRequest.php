@@ -16,11 +16,12 @@ class SendRequest extends FormRequest
     public function rules()
     {
         return [
-
             'device' => 'required|string',
             'directory' => 'required|string|max:16',
             'action' => 'required|string',
             'parameters' => 'json',
+            'token' => 'required|string|max:9',
+            'protocol' => 'required|string'
         ];
     }
 }

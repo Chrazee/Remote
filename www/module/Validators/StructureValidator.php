@@ -14,15 +14,16 @@ class StructureValidator extends Validator {
         $this->validate();
     }
 
-    protected function validateController() {
-        if(!Storage::disk('module')->exists($this->directoryName . "/Controller/SettingController.php")) {
-            $this->failed('The Controller file does not exists.');
+    protected function validateDirectory() {
+        if(!Storage::disk('module')->exists($this->directoryName)) {
+            $this->failed("The Module directory ({$this->directoryName}) does not exists.");
         }
         return true;
     }
 
     protected function validateView() {
-        if(!Storage::disk('module')->exists($this->directoryName . "/View/View.blade.php")) {
+        $path = $this->directoryName . "/" . env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
+        if(!Storage::disk('module')->exists($path)) {
             $this->failed('The View file does not exists.');
         }
         return true;

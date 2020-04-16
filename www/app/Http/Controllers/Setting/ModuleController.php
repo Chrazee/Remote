@@ -73,14 +73,14 @@ class ModuleController extends Controller
         $directory = Str::random(16);
 
         Storage::disk('module')->makeDirectory($directory);
-        Storage::disk('module')->putFileAs($directory, $request->file('controller_file'), 'controller.php');
-        Storage::disk('module')->putFileAs($directory, $request->file('view_file'), 'view.blade.php');
+        Storage::disk('module')->putFileAs($directory, $request->file('controller_file'), env('MODULE_CONTROLLER') . env('MODULE_CONTROLLER_EXTENSION'));
+        Storage::disk('module')->putFileAs($directory, $request->file('view_file'), env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION'));
 
         Module::create([
             'user_id' => $validated['user_id'],
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'directory' => $directory
+            'directory' => $directory,
         ]);
 
         return response()->json(['message' => [Lang::get('response.module_create')]]);

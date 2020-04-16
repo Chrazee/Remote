@@ -1,10 +1,12 @@
 <?php
 
+namespace Module\Storage\fIGEaTSTZXjexYZb;
+
 use Module\Controllers\RequestController;
 
-class ModuleController extends RequestController
+class Controller extends RequestController
 {
-    function get($device, $parameters) {
+   /* function get($device, $parameters) {
         $this->response(['api_error' => ['header' => 'ez a thermometercontroller get function']]);
-    }
+    }*/
 }

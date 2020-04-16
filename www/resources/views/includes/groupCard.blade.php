@@ -11,7 +11,7 @@
                             @else
                                 0
                             @endif
-                            {{Lang::get('device.device')}}
+                            {{Lang::get('common.device')}}
                         </p>
                     </div>
                 </div>

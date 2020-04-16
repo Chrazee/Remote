@@ -1,4 +1,4 @@
-@extends('layouts.main', ['title' => $title])
+@extends('layouts.main')
 
 @section('content')
     @if (!empty($error))
@@ -11,23 +11,16 @@
             </div>
         </div>
     @else
+        @include('includes.tesaser', ['icon' => '<i class="fas fa-microchip"></i>', 'title' => $deviceName])
+
         <div class="row">
             <div class="col-12 mb-3">
-                <div class="card rounded teaser">
-                    <div class="card-body">
-                        <div class="row h-100">
-                            <div class="col-6 align-self-center teaser-left">
-                                <h1><i class="fa fa-microchip"></i></h1>
-                            </div>
-                            <div class="col-6 align-self-center teaser-right">
-                                <h4><strong>{{$device->name}}</strong></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 mb-3">
-                @include($view)
+                @component('components.module')
+                    @slot('data', $data)
+                    @slot('module')
+                        @include($view)
+                    @endslot
+                @endcomponent
             </div>
         </div>
     @endif

@@ -3,15 +3,22 @@
 return [
     'homepage' => 'homepage',
 
+    'favorite' => 'favorite',
+    'favorites' => 'favorites',
+    'favorite_not_set_title' => 'Favorite group not set!',
+    'favorite_not_set_message' => "No group set for favorite group.",
+    'favorite_not_found_title' => 'No devices in favorites!',
+    'favorite_not_found_message' => "No devices in the group which is set to favorite group.",
+
     'setting' => 'setting',
     'settings' => 'settings',
-
     'general' => 'general',
 
     'group' => 'group',
     'groups' => 'groups',
     'group_settings' => 'group settings',
     'parent_group' => 'parent group',
+    'sub_groups' => 'sub groups',
 
     'device' => 'device',
     'devices' => 'devices',
@@ -36,6 +43,7 @@ return [
     'edit' => 'edit',
     'delete' => 'delete',
     'create' => 'create',
+    'add' => 'add',
 
     'name' => 'name',
     'description' => 'description',
@@ -83,4 +91,13 @@ return [
     'view_file' => 'view file',
     'upload_controller_file' => 'upload controller file',
     'upload_view_file' => 'upload view file',
+
+    'can_not_load_the_device' => 'Can not load the device!',
+
+    'try_again' => 'try again',
+    'retrieving_data' => 'retrieving data',
+    'device_user_token_not_match' => "The Device Token not match.",
+    'connection_timed_out' => "Connection timed out.",
+
+
 ];

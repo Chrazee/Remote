@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{asset('assets/mdbootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/mdbootstrap/css/mdb.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/animate/css/animate.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/site/css/site.css')}}">
         <script src="{{asset('assets/mdbootstrap/js/jquery-3.4.1.min.js')}}"></script>
         <script src="{{asset('assets/site/js/common.js')}}"></script>
@@ -35,9 +36,6 @@
                             <i class="fa fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="topnavDropdown">
-                            @if(Auth::user()->admin == 1)
-                                <a class="dropdown-item" href="{{route('admin')}}"><i class="fa fa-user-shield"></i> {{ucfirst(Lang::get('common.admin'))}}</a>
-                            @endif
                             <a class="dropdown-item" href="{{route('settings.account')}}"><i class="far fa-user-circle"></i> {{ucfirst(Lang::get('common.account'))}}</a>
                             <a class="dropdown-item" href="{{route('logout')}}"><i class="fa fa-power-off"></i> {{ucfirst(Lang::get('common.logout'))}}</a>
                         </div>
@@ -52,12 +50,12 @@
         <nav class="navbar fixed-bottom justify-content-between flex-nowrap flex-row z-depth-1" id="navbar-bottom">
             <ul class="nav navbar-nav flex-row mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link @if(Route::current()->getName() == 'index')active @endif" href="{{route('index')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('index.homepage'))}}">
+                    <a class="nav-link @if(Route::current()->getName() == 'index')active @endif" href="{{route('index')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('common.homepage'))}}">
                         <i class="fas fa-home"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(Route::current()->getName() == 'favorites')active @endif" href="{{route('favorites')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('favorite.favorites'))}}">
+                    <a class="nav-link @if(Route::current()->getName() == 'favorites')active @endif" href="{{route('favorites')}}" data-toggle="tooltip" data-placement="top" title="{{ucfirst(Lang::get('common.favorites'))}}">
                         <i class="far fa-heart"></i>
                     </a>
                 </li>

@@ -200,6 +200,38 @@ a:hover, a:active, a:focus {
     border-bottom: 1px solid  #ececec;
 }
 
+/* module overlay*/
+
+.module-box {
+    position: relative;
+}
+
+.module-overlay {
+    position: absolute;
+    z-index: 999;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    top: 0;
+    left: 0;
+}
+
+.module-overlay .process-text {
+    font-style: italic;
+}
+
 /* icon-box */
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_image_overlay_opacity */
 .icon-box {

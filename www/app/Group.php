@@ -8,14 +8,10 @@ class Group extends Model
 {
     protected $table = "groups";
     protected $primaryKey = "id";
-    protected $fillable = ['name', 'description', 'user_id', 'icon_id', 'parent_id'];
+    protected $fillable = ['name', 'description', 'user_id', 'parent_id'];
 
     public function devices() {
         return $this->hasMany('App\Device');
-    }
-
-    public function icon() {
-        return $this->belongsTo('App\GroupsIcon');
     }
 
     public function parent() {
