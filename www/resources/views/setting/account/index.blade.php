@@ -44,6 +44,22 @@
                                 <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" data-original="">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="favorite_group_id">{{ucfirst(Lang::get('common.favorite_group'))}}</label>
+                            <div class="col-sm-10">
+                                <select name="favorite_group_id" class="browser-default custom-select" id="favorite_group_id" data-original="{{$userSetting['favorite_group_id']}}">
+                                    <option value="">Not set</option>
+                                    @foreach($groups as $item)
+                                        @if($userSetting['favorite_group_id'] != null && $userSetting['favorite_group_id'] == $item->id)
+                                            <option selected value="{{$item->id}}">{{$item->name}}</option>
+                                        @else
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-12 text-right">
                                 <button type="submit" class="btn btn-outline-dark-green btn-rounded btn-md px-3 action-save" disabled>

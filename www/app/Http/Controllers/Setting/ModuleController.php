@@ -70,10 +70,9 @@ class ModuleController extends Controller
 
     function create(Create $request) {
         $validated = $request->validated();
-        $directory = Str::random(16);
+        $directory = env('MODULE_DIRECTORY') . '/' . Str::random(16);
 
         Storage::disk('module')->makeDirectory($directory);
-        Storage::disk('module')->putFileAs($directory, $request->file('controller_file'), env('MODULE_CONTROLLER') . env('MODULE_CONTROLLER_EXTENSION'));
         Storage::disk('module')->putFileAs($directory, $request->file('view_file'), env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION'));
 
         Module::create([
@@ -96,10 +95,11 @@ class ModuleController extends Controller
         $validated = $request->validated();
 
         $module = Module::findOrFail($id);
-        $directory = $module->directory;
+        $directory =  env('MODULE_DIRECTORY') . '/' . $module->directory;
         Storage::disk('module')->deleteDirectory($directory);
 
         Module::findOrFail($id)->delete();
+
         return response()->json(['message' => [Lang::get('response.module_delete')]]);
     }
 }

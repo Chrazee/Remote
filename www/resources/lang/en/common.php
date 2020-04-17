@@ -5,6 +5,7 @@ return [
 
     'favorite' => 'favorite',
     'favorites' => 'favorites',
+    'favorite_group' => 'favorite group',
     'favorite_not_set_title' => 'Favorite group not set!',
     'favorite_not_set_message' => "No group set for favorite group.",
     'favorite_not_found_title' => 'No devices in favorites!',
@@ -87,17 +88,17 @@ return [
 
     'directory' => 'directory',
 
-    'controller_file' => 'controller file',
     'view_file' => 'view file',
-    'upload_controller_file' => 'upload controller file',
     'upload_view_file' => 'upload view file',
+    'change_view_file' => 'change view file',
 
     'can_not_load_the_device' => 'Can not load the device!',
 
     'try_again' => 'try again',
-    'retrieving_data' => 'retrieving data',
+    'retrieving_data' => 'retrieving data...',
     'device_user_token_not_match' => "The Device Token not match.",
     'connection_timed_out' => "Connection timed out.",
 
-
+    'module_directory_not_exists' => 'The Module directory (:name) does not exists.',
+    'view_file_not_exists' => 'The View file does not exists.',
 ];

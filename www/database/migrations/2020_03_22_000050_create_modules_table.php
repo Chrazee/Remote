@@ -20,7 +20,6 @@ class CreateModulesTable extends Migration
             $table->string('directory')->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->tinyInteger('public')->default('0');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Module\Validators;
 
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 
 class StructureValidator extends Validator {
@@ -15,16 +16,17 @@ class StructureValidator extends Validator {
     }
 
     protected function validateDirectory() {
-        if(!Storage::disk('module')->exists($this->directoryName)) {
-            $this->failed("The Module directory ({$this->directoryName}) does not exists.");
+        $path = env('MODULE_DIRECTORY') . '/' . $this->directoryName;
+        if(!Storage::disk('module')->exists($path)) {
+            $this->failed(Lang::get('common.module_directory_not_exists', ['name' => $this->directoryName]));
         }
         return true;
     }
 
     protected function validateView() {
-        $path = $this->directoryName . "/" . env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
+        $path = env('MODULE_DIRECTORY') . '/' . $this->directoryName . '/' .  env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
         if(!Storage::disk('module')->exists($path)) {
-            $this->failed('The View file does not exists.');
+            $this->failed(Lang::get('common.view_file_not_exists'));
         }
         return true;
     }

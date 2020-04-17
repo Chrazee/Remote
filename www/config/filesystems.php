@@ -66,7 +66,7 @@ return [
 
         'module' => [
             'driver' => 'local',
-            'root' => base_path('module/Storage'),
+            'root' => storage_path('module'),
         ],
 
     ],

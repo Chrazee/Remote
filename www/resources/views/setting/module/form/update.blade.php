@@ -14,6 +14,12 @@
             <textarea name="description" class="form-control" id="description" rows="3" placeholder="{{ucfirst(Lang::get('common.description'))}}" data-original="{{$module->description}}">{{$module->description}}</textarea>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="view_file">{{ucfirst(Lang::get('common.change_view_file'))}}</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control-file" id="view_file" name="view_file" data-original="">
+        </div>
+    </div>
     @include('includes.actionButtons')
 </form>
 <script>

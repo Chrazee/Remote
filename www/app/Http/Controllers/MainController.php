@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Device as Device;
 use App\DeviceType;
 use App\Group;
-use App\Http\Requests\Device\SendRequest;
 use App\User;
 use App\UserSetting;
 use Illuminate\Http\Request;
@@ -127,7 +126,7 @@ class MainController extends Controller
         }
 
         $directory = $device->module->directory;
-        $viewPath =  $device->module->directory. "/" . env('MODULE_VIEW');
+        $viewPath =  $directory .  "/" . env('MODULE_VIEW');
 
         $data = json_encode([
             '_token' => csrf_token(),

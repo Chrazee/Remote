@@ -36,13 +36,14 @@
                             <i class="fa fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="topnavDropdown">
-                            <a class="dropdown-item" href="{{route('settings.account')}}"><i class="far fa-user-circle"></i> {{ucfirst(Lang::get('common.account'))}}</a>
+                            <a class="dropdown-item" href="{{route('settings.account')}}"><i class="far fa-user-circle"></i> {{Auth::user()->username}}</a>
                             <a class="dropdown-item" href="{{route('logout')}}"><i class="fa fa-power-off"></i> {{ucfirst(Lang::get('common.logout'))}}</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
+
         <div class="container-fluid" id="content">
             @yield('content')
         </div>

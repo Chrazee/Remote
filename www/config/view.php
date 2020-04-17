@@ -14,7 +14,7 @@ return [
     */
 
     'paths' => [
-        base_path('module/Storage'),
+        storage_path('module/modules'),
         resource_path('views'),
     ],
 

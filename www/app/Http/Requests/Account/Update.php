@@ -20,6 +20,7 @@ class Update extends FormRequest
             'user_id' => 'required|int|exists:users,id',
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
             'password' => 'nullable|string|confirmed|min:6|max:255',
+            'favorite_group_id' => 'nullable|exists:groups,id',
         ];
     }
 
