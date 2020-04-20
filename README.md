@@ -1,8 +1,9 @@
 # Remote
 
-## Start project
+## To start demo project
 
-- Change the Apache UID (APACHE_UID) and GID (APACHE_GID) arguments in the docker-compose.yml file
-- Start services with the 'docker-compose up -d' command
-- Enter the www directory and run the database migration with the 'php artisan migrate:fresh --seed' command
-
+- Enter to the /app directory and start services with 'docker-compose up -d' command
+- Enter the /docker/helpers/ directory and run the database migrations with the './artisan migrate:fresh --seed' command
+- You will be reach the application on http://127.0.0.1:62080. 
+- Default username: remote
+- Default password: remote

@@ -1,7 +1,7 @@
 FROM php:7.3-apache
 
-ARG APACHE_UID=1000
-ARG APACHE_GID=1000
+ARG APACHE_UID
+ARG APACHE_GID
 
 RUN usermod -u $APACHE_UID www-data
 RUN groupmod -g $APACHE_GID www-data

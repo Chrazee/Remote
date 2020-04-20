@@ -19,7 +19,7 @@ class DevicesTableSeeder extends Seeder
             'module_id' => '1',
             'protocol_id' => '1',
             'name' => 'Relay',
-            'address' => '192.168.0.141'
+            'address' => '192.168.84.20'
         ]);
 
         Device::create([
@@ -29,7 +29,7 @@ class DevicesTableSeeder extends Seeder
             'type_id' => '2',
             'module_id' => '2',
             'protocol_id' => '1',
-            'address' => '192.168.0.217'
+            'address' => '192.168.84.10'
         ]);
     }
 }
