@@ -7,26 +7,23 @@ use Illuminate\Support\Facades\Storage;
 
 class StructureValidator extends Validator {
 
-    private $directoryName;
+    public static function validateDirectory($directory = null) {
+        $dir = ($directory !== null) ? $directory : self::$directory;
 
-    public function __construct($directoryName)
-    {
-        $this->directoryName = $directoryName;
-        $this->validate();
-    }
-
-    protected function validateDirectory() {
-        $path = env('MODULE_DIRECTORY') . '/' . $this->directoryName;
+        $path = env('MODULE_DIRECTORY') . '/' . $dir;
         if(!Storage::disk('module')->exists($path)) {
-            $this->failed(Lang::get('common.module_directory_not_exists', ['name' => $this->directoryName]));
+            return self::return(false, Lang::get('common.module_directory_not_exists', ['name' => $dir]));
         }
         return true;
     }
 
-    protected function validateView() {
-        $path = env('MODULE_DIRECTORY') . '/' . $this->directoryName . '/' .  env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
+    public static function validateView($inDirectory = null) {
+        $path = env('MODULE_DIRECTORY') . '/' . self::$directory . '/' .  env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
+        if($inDirectory !== null) {
+            $path = env('MODULE_DIRECTORY') . '/' . $inDirectory . '/' .  env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION');
+        }
         if(!Storage::disk('module')->exists($path)) {
-            $this->failed(Lang::get('common.view_file_not_exists'));
+            return self::return(false, Lang::get('common.view_file_not_exists'));
         }
         return true;
     }

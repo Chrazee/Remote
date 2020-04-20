@@ -1,4 +1,4 @@
-<form class="form update-form" method="post">
+<form class="form update-form" method="post" enctype="multipart/form-data">
     @include('includes.preloader')
     @include('includes.errorBag')
     @include('includes.authorizeFields')
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="view_file">{{ucfirst(Lang::get('common.change_view_file'))}}</label>
+        <label class="col-sm-2 col-form-label" for="view_file">{{ucfirst(Lang::get('common.change_view_file'))}} ({{env('MODULE_VIEW_EXTENSION')}})</label>
         <div class="col-sm-10">
             <input type="file" class="form-control-file" id="view_file" name="view_file" data-original="">
         </div>
@@ -26,7 +26,8 @@
     $(document).ready(function() {
         $('.update-form').ajaxSubmit({
             url: '{{route('settings.module.update', ['id' => $module->id])}}',
-            redirect: '{{route('settings.module.show', ['id' => $module->id])}}'
+            redirect: '{{route('settings.module.show', ['id' => $module->id])}}',
+            withFile: true,
         });
     });
 </script>

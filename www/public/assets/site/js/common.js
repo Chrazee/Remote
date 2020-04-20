@@ -91,6 +91,7 @@
             redirect: "",
             refreshTIme: 2000,
             sleepTime: 800,
+            withFile: false,
         }, options);
 
         return self.each(function() {
@@ -98,10 +99,25 @@
 
             $(self).on( "submit", function(event) {
                 event.preventDefault();
+
+                if(settings.withFile === true) {
+                    $.ajaxSetup({
+                        type: 'POST',
+                        url: settings.url,
+                        data:  new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                    });
+                } else {
+                    $.ajaxSetup({
+                        type: 'POST',
+                        url: settings.url,
+                        data: $(self).serialize(),
+                    });
+                }
+
                 $.ajax({
-                    type: 'POST',
-                    url: settings.url,
-                    data: $(self).serialize(),
                     beforeSend: function() {
                             $(self).find(".preloader-container").removeClass('d-none');
                             $(self).find('.error-bag').data('errorBag').clear();

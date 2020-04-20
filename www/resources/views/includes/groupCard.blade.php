@@ -1,16 +1,12 @@
 <div class="row">
     @foreach($groups as $group)
-        <div class="col-6 col-sm-4 col-md-3 box">
+        <div class="{{ (isset($colSize)) ? $colSize : 'col-6 col-sm-4 col-md-3' }} box">
             <a href="/group/{{$group->id}}">
                 <div class="card">
                     <div class="card-body">
                         <h5>{{$group->name}}</h5>
                         <p class="text-muted">
-                            @if($group->devices_count)
-                                {{$group->devices_count}}
-                            @else
-                                0
-                            @endif
+                            {{App\Group::countDevicesFromId($group->id)}}
                             {{Lang::get('common.device')}}
                         </p>
                     </div>

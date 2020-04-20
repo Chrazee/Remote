@@ -70,10 +70,11 @@ class ModuleController extends Controller
 
     function create(Create $request) {
         $validated = $request->validated();
-        $directory = env('MODULE_DIRECTORY') . '/' . Str::random(16);
+        $directory = Str::random(16);
+        $directoryPath = env('MODULE_DIRECTORY') . '/' . $directory;
 
-        Storage::disk('module')->makeDirectory($directory);
-        Storage::disk('module')->putFileAs($directory, $request->file('view_file'), env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION'));
+        Storage::disk('module')->makeDirectory($directoryPath);
+        Storage::disk('module')->putFileAs($directoryPath, $request->file('view_file'), env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION'));
 
         Module::create([
             'user_id' => $validated['user_id'],
@@ -87,7 +88,19 @@ class ModuleController extends Controller
 
     function update(Update $request, $id) {
         $validated = $request->validated();
-        Module::findOrFail($id)->update($validated);
+        $module = Module::findOrFail($id);
+
+        if($request->file('view_file')) {
+            // delete all file in the directory
+            $files =  Storage::disk('module')->allFiles(env('MODULE_DIRECTORY') . '/' . $module->directory);
+            Storage::disk('module')->delete($files);
+            // upload new file
+            $directoryPath = env('MODULE_DIRECTORY') . '/' . $module->directory;
+            Storage::disk('module')->putFileAs($directoryPath, $request->file('view_file'), env('MODULE_VIEW') . env('MODULE_VIEW_EXTENSION'));
+        }
+
+        $module->update($validated);
+
         return response()->json(['message' => [Lang::get('response.module_update')]]);
     }
 
@@ -98,7 +111,7 @@ class ModuleController extends Controller
         $directory =  env('MODULE_DIRECTORY') . '/' . $module->directory;
         Storage::disk('module')->deleteDirectory($directory);
 
-        Module::findOrFail($id)->delete();
+        $module->delete();
 
         return response()->json(['message' => [Lang::get('response.module_delete')]]);
     }

@@ -1,17 +1,16 @@
 @extends('layouts.main')
 
 @section('content')
+    @include('includes.tesaser', ['icon' => '<i class="fa fa-map-marked"></i>', 'title' => $group->name, 'subTitle' => $title])
     <div class="row">
         @if ($group->child->count() > 0)
-            <div class="col-12">
+            <div class="col-md-6">
                 <h4>{{ucfirst(Lang::get('common.sub_groups'))}}</h4>
-                    @include('includes.groupCard', ['groups' => $group->child])
+                @include('includes.groupCard', ['groups' => $group->child, 'colSize' => 'col-md-6'])
             </div>
         @endif
-        <div class="col-12">
+        <div class="{{ ($group->child->count() > 0) ? 'col-md-6' : 'col-12'}}">
             <h4>{{ucfirst(Lang::get('common.devices'))}}</h4>
-        </div>
-        <div class="col-12">
             <div class="row">
                 @php
                     $devices_count = false;
@@ -21,7 +20,7 @@
                         @php
                             $devices_count = true;
                         @endphp
-                        <div class="col-6 col-sm-4 col-md-3 box">
+                        <div class="{{ ($group->child->count() > 0) ? 'col-md-6' : 'col-6 col-sm-4 col-md-3'}} box">
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <a href="{{Request::url()}}/type/{{$type->id}}">

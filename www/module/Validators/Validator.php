@@ -2,30 +2,39 @@
 
 namespace Module\Validators;
 
-
-use Module\Exceptions\ValidationException;
-
 class Validator
 {
-    public $message;
-    public $passed;
+    protected static $directory;
+    protected static $messages;
 
-    public function failed($message) {
-        $this->message = $message;
-        throw new ValidationException(422, $this->message);
+    public static function return($status, $message = null) {
+        return self::$messages[] = [
+            'status' => $status,
+            'message' => $message
+        ];
     }
 
-    public function passes() {
-        return $this->passed;
-    }
+    public static function validate($inDirectory, $stopOnFirstError = false) {
+        self::$directory = $inDirectory;
+        $stop = false;
 
-    public function validate() {
-        $this->passed = false;
-        foreach (get_class_methods($this) as $method) {
-            if (strpos($method, "validate") === 0 && $method != "validate") {
-                call_user_func_array([$this, $method], []);
+        foreach (get_class_methods(get_called_class()) as $method) {
+            if (strpos($method, "validate") === 0 && $method != "validate" && $stop === false) {
+                if($stopOnFirstError) {
+                    $returnValue = call_user_func_array([get_called_class(), $method], []);
+                    if($returnValue !== true) {
+                        $stop = true;
+                    }
+                } else {
+                    call_user_func_array([get_called_class(), $method], []);
+                }
             }
         }
-        $this->passed = true;
+
+        return (empty(self::$messages));
+    }
+
+    public static function getMessages() {
+        return self::$messages;
     }
 }

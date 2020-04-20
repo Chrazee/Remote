@@ -9,6 +9,7 @@
         @include('includes.tesaser', ['icon' => '<i class="far fa-heart"></i>', 'title' => $title])
 
         @if($devices != null)
+            <h4>{{ucfirst(Lang::get('common.devices'))}}</h4>
             @include('includes.deviceCard', ['devices' => $devices])
         @else
             @alert(['type' => 'warning', 'align' => 'center', 'title' => Lang::get('common.favorite_not_found_title'), 'message' => Lang::get('common.favorite_not_found_message')])

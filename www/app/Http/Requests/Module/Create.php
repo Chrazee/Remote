@@ -19,7 +19,7 @@ class Create extends FormRequest
             'user_id' => 'required|int|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'view_file' => "required",
+            'view_file' => "required|mimetypes:text/html",
         ];
     }
 

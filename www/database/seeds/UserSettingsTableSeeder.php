@@ -14,6 +14,7 @@ class UserSettingsTableSeeder extends Seeder
     {
         UserSetting::create([
             'user_id' => '1',
+            'favorite_group_id' => '3',
         ]);
     }
 }

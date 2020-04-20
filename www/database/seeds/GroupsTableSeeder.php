@@ -15,39 +15,19 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'parent_id' => '-1',
             'user_id' => '1',
-            'name' => 'Test Group 1'
-
+            'name' => 'Home'
         ]);
 
         Group::create([
             'parent_id' => '-1',
             'user_id' => '1',
-            'name' => 'Test Group 2'
+            'name' => 'Office'
         ]);
 
         Group::create([
             'parent_id' => '2',
             'user_id' => '1',
-            'name' => 'Test Group 2 Sub 1'
-        ]);
-
-        Group::create([
-            'parent_id' => '2',
-            'user_id' => '1',
-            'name' => 'Test Group 2 Sub 2'
-        ]);
-
-        Group::create([
-            'parent_id' => '-1',
-            'user_id' => '2',
-            'name' => 'Guests Csoport'
-        ]);
-
-
-        Group::create([
-            'parent_id' => '4',
-            'user_id' => '1',
-            'name' => 'Test Group 2 Sub 1 Sub 1'
+            'name' => 'Server Room'
         ]);
     }
 }

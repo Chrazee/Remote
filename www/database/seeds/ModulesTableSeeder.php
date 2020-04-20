@@ -14,17 +14,14 @@ class ModulesTableSeeder extends Seeder
     {
         Module::create([
             'user_id' => '1',
-            'directory' => 'fIGEaTSTZXjexYZb',
-            'name' => 'Thermometer Controller',
-            'description' => 'Thermometer Controller Description'
-
+            'directory' => 'RemoteDemovZb2Bk',
+            'name' => 'Relay Control Layout',
         ]);
 
         Module::create([
             'user_id' => '1',
-            'directory' => 'r74YL4qbEzvZb2Bk',
-            'name' => 'Test',
-            'description' => 'Not valid content'
+            'directory' => 'RemoteDemojexYZb',
+            'name' => 'Thermometer Control Layout',
         ]);
     }
 }

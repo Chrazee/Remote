@@ -45,11 +45,16 @@
             var self = this;
             var settings = $.extend({
                 beforeSend: true,
-                autoUpdateTime: 3000,
+                autoUpdateTime: null,
+                action: 'get',
+                parameters: {},
                 responseHandler: function() {},
             }, options);
 
             var autoUpdate = false;
+            var data = JSON.parse('{!! $data !!}');
+            data.action = settings.action;
+            data.parameters = settings.parameters;
 
             self.sendRequest = function(beforeSend = true) {
                 var overlay = $('.module-overlay').overlay({
@@ -59,7 +64,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{route('device.request')}}',
-                    data: JSON.parse('{!! $data !!}'),
+                    data: data,
                     beforeSend: function() {
                         if(beforeSend) {
                             overlay.data('overlay').beforeSend();
@@ -83,7 +88,6 @@
                 });
             };
 
-            // on document load
             self.sendRequest();
 
             // on refresh button click
@@ -93,7 +97,7 @@
 
             // auto Update
             setInterval(function() {
-                if(autoUpdate) {
+                if(settings.autoUpdateTime !== null && autoUpdate) {
                     self.sendRequest(false);
                 }
             }, settings.autoUpdateTime);

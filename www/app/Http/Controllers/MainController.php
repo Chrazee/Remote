@@ -10,6 +10,7 @@ use App\UserSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
 use Module\Controllers\RequestController;
 use Module\Exceptions\ValidationException;
 use Module\Validators\StructureValidator;
@@ -41,11 +42,21 @@ class MainController extends Controller
     {
         $userId =  Auth::user()->id;
         $deviceLimit = 3;
-        $group = Group::with(['child'])->where('user_id', $userId)->findOrFail($id);
+        $group = Group::with(['device','child', 'child.device'])->where('user_id', $userId)->findOrFail($id);
         $types = DeviceType::with(['devices' => function($q) use ($deviceLimit, $id) {
             $q->where('devices.group_id', $id)->limit($deviceLimit);
         }])->where('user_id', $userId)->get();
 
+        $this->title[] = [
+            'name' => ucfirst(Lang::get('common.groups')),
+            'link' => route('index'),
+        ];
+        foreach (Group::getParentsFromId($group->id) as $parent) {
+            $this->title[] = [
+                'name' => $parent['name'],
+                'link' => route('group', $parent['id']),
+            ];
+        }
         $this->title[] = [
             'name' => $group->name,
         ];
@@ -63,13 +74,13 @@ class MainController extends Controller
     {
         $userId =  Auth::user()->id;
         $group = Group::where('user_id', $userId)->findOrFail($id);
-
-        $deviceType = DeviceType::with(['devices' => function($q) use ($userId) {
-            $q->where('devices.group_id', $userId);
+        $deviceType = DeviceType::with(['devices' => function($q) use ($group) {
+            $q->where('devices.group_id', $group->id);
         }])->findOrFail($type);
 
         $this->title[] = [
             'name' => $group->name,
+            'link' => route('group', $group->id)
         ];
         $this->title[] = [
             'name' => $deviceType->name,
@@ -102,9 +113,8 @@ class MainController extends Controller
 
     function device($id)
     {
-        $device =  Device::with(['type','module', 'protocol'])->findOrFail($id);
+        $device = Device::with(['type', 'module', 'protocol'])->findOrFail($id);
         $user = User::findorFail(Auth::user()->id);
-
 
         $this->title[] = [
             'name' => Lang::get('common.devices'),
@@ -113,20 +123,19 @@ class MainController extends Controller
             'name' => $device->name,
         ];
 
-        try {
-            $moduleValidator = new StructureValidator($device->module->directory);
-        } catch (ValidationException $e) {
+        if (!StructureValidator::validate($device->module->directory, true)) {
             return view('device', [
                 'title' => $this->title,
                 'error' => [
                     'title' => Lang::get('common.can_not_load_the_device'),
-                    'message' => $e->getTitle() . ' ('.$e->getHttpStatusCode().'): ' . $e->getMessage()
+                    'messages' => StructureValidator::getMessages()
                 ]
             ]);
         }
 
         $directory = $device->module->directory;
-        $viewPath =  $directory .  "/" . env('MODULE_VIEW');
+        $viewFile =  $directory .  "/" . env('MODULE_VIEW');
+        View::addExtension(env('MODULE_VIEW_EXTENSION'), 'php');
 
         $data = json_encode([
             '_token' => csrf_token(),
@@ -135,7 +144,6 @@ class MainController extends Controller
                 'address' => $device->address,
                 'protocol' => $device->protocol->name
             ],
-            'directory' => $directory,
             'token' => $user->device_token,
             'action' => 'get',
             'parameters' => [],
@@ -145,7 +153,7 @@ class MainController extends Controller
             'title' => $this->title,
             'deviceName' =>  $device->name,
             "data" => $data,
-            'view' => $viewPath,
+            'viewFile' => $viewFile,
         ]);
     }
 

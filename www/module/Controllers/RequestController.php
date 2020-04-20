@@ -9,11 +9,11 @@ use Module\Connection\Connection;
 class RequestController
 {
     public function postRequest($data) {
-        $parameters = ['token' => $data['token']];
-
+        $parameters = [];
         if(array_key_exists('parameters', $data)) {
-            $parameters[] = $data['parameters'];
+            $parameters = $data['parameters'];
         }
+        $parameters['token'] = $data['token'];
 
         try {
             $url = $data['device']['protocol'] . '://' . $data['device']['address'] . '/' . $data['action'];
@@ -28,7 +28,7 @@ class RequestController
                 $this->response(['status' => true, 'data' => json_decode($response->getBody()->getContents())]);
             } else {
                 $responseContent = json_decode($response->getBody()->getContents(), true);
-                if ($responseContent['failed_validation'] == "token") {
+                if (isset($responseContent['failed_validation']) && $responseContent['failed_validation'] == "token") {
                     $this->response(['status' => false, 'message' => $statusCode . ": " . $response->getReasonPhrase(), 'errors' => Lang::get('common.device_user_token_not_match')]);
                 }
                 $this->response(['status' => false, 'message' => $statusCode . ": " . $response->getReasonPhrase(), 'errors' => $responseContent]);

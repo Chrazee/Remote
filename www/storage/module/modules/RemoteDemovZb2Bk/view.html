@@ -1,0 +1,64 @@
+<div class="row h-100 p-5">
+    <div class="col-8 align-self-center">
+        <h3 class="d-inline-block align-middle">Switch</h3>
+    </div>
+    <div class="col-4 align-self-center">
+        <div class="float-right">
+            <span class="switch switch-lg">
+                <input type="checkbox" class="switch" id="switch" value="1" checked>
+                <label for="switch">Turn on</label>
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        function turnOn() {
+            $('.switch input').prop('checked', false);
+            $('.switch input').val(1);
+            $('.switch label').html('Turn on');
+        }
+
+        function turnOff() {
+            $('.switch input').prop('checked', true);
+            $('.switch input').val(0);
+            $('.switch label').html('Turn off');
+        }
+
+        function get() {
+            $().makeRequest({
+                responseHandler: function(response) {
+                    if(response.data.state == "on") {
+                        turnOff();
+                    }
+                    if(response.data.state == "off") {
+                        turnOn();
+                    }
+                },
+            });
+        }
+
+        get();
+
+        $('.switch input').change(function() {
+            $().makeRequest({
+                action: 'switch',
+                parameters: {
+                    status: $(this).val(),
+                },
+                responseHandler: function(response) {
+                    console.log(response);
+                    if(response.data.state == "alreadyOn" || response.data.state == "switchedToOn") {
+                        turnOff();
+                    }
+                    if(response.data.state == "alreadyOff" || response.data.state == "switchedToOff") {
+                        turnOn();
+                    }
+                    if(response.data.state == "unknownStatusValue") {
+                        get();
+                    }
+                },
+            });
+        });
+    });
+</script>

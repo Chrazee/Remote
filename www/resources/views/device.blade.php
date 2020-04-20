@@ -6,7 +6,11 @@
             <div class="col-12">
                 <div class="alert alert-info text-center">
                     <h5>{{$error['title']}}</h5>
-                    <p>{{$error['message']}}</p>
+                    <ul class="list-unstyled">
+                        @foreach($error['messages'] as $message)
+                            <li>{{$message['message']}}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
@@ -18,7 +22,7 @@
                 @component('components.module')
                     @slot('data', $data)
                     @slot('module')
-                        @include($view)
+                        @include($viewFile)
                     @endslot
                 @endcomponent
             </div>

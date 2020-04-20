@@ -27,7 +27,6 @@ class CreateDevicesTable extends Migration
             $table->foreign('protocol_id')->references('id')->on('protocols')->onDelete('restrict');
             $table->string('name');
             $table->string('address');
-            $table->json('last_data')->nullable();
             $table->timestamps();
         });
     }

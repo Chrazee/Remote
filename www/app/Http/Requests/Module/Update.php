@@ -21,8 +21,7 @@ class Update extends FormRequest
             'user_id' => 'required|int|exists:users,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'controller_file' => "nullable",
-            'view_file' => "nullable",
+            'view_file' => "nullable|mimetypes:text/html",
         ];
     }
 
@@ -32,7 +31,6 @@ class Update extends FormRequest
             'user_id' => ucfirst(Lang::get('common.user_identifier')),
             'name' => ucfirst(Lang::get('common.name')),
             'description' => ucfirst(Lang::get('common.description')),
-            'controller_file' => ucfirst(Lang::get('common.controller_file')),
             'view_file' => ucfirst(Lang::get('common.view_file')),
         ];
     }

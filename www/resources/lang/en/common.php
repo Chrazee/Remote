@@ -63,9 +63,6 @@ return [
     'module_identifier' => 'module identifier',
     'protocol_identifier' => 'protocol identifier',
 
-    'tree_view' => 'tree view',
-    'table_view' => 'table view',
-
     'actions' => 'actions',
     'jump_to' => 'jump to',
 
@@ -100,5 +97,14 @@ return [
     'connection_timed_out' => "Connection timed out.",
 
     'module_directory_not_exists' => 'The Module directory (:name) does not exists.',
+    'view_file_exists' => 'The View file exists',
     'view_file_not_exists' => 'The View file does not exists.',
+
+    'file' => 'file',
+    'files' => 'files',
+    'directory_exists' => 'directory exists',
+    'directory_not_exists' => 'directory does not exists',
+
+    'directory_status' => 'directory status',
+    'view_file_status'  => 'view file status',
 ];

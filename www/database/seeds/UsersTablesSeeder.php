@@ -15,20 +15,11 @@ class UsersTablesSeeder extends Seeder
     {
         User::create([
             'username'    => 'remote',
-            'email'    => 'remote@remote.org',
+            'email'    => 'remote@remote-demo.org',
             'password'   =>  Hash::make('remote'),
             'remember_token' =>  Str::random(10),
             'device_token' => 'ZFLW-AZCR',
             'admin' => '1',
-        ]);
-
-        User::create([
-            'username'    => 'guest',
-            'email'    => 'guest@remote.org',
-            'password'   =>  Hash::make('guest'),
-            'remember_token' =>  Str::random(10),
-            'device_token' => 'LENV-QYGO',
-            'admin' => '0',
         ]);
     }
 }
