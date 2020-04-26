@@ -1,9 +1,3 @@
 # IDE files
 .idea
 
-# MySQL data
-database/*
-
-# log files
-*.log
-
