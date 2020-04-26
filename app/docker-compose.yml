@@ -23,7 +23,7 @@ services:
     db:
       image: mysql:8.0
       container_name: remote_db
-      ports: 
+      ports:
       - "62081:3306"
       command: --default-authentication-plugin=mysql_native_password
       environment:
