@@ -4,7 +4,7 @@
 
 Clone repo:
 ```shell script
-cd ^
+cd ~
 git clone git@github.com:Chrazee/remote-docker.git
 ```
 
@@ -35,7 +35,7 @@ Open up the web UI via browser:
  http://127.0.0.1:62080
 ```
 
-Log In
+Log In:
 ```shell script
 Default username: remote
 Default password: remote
