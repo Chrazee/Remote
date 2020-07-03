@@ -1,0 +1,65 @@
+// Common
+$enable-shadows: true;
+$enable-transitions: true;
+$border-radius: .125rem;
+
+// Body
+$body-bg: #f5f7fa;
+
+// Typography
+$font-family-sans-serif: 'Montserrat', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Colors
+$blue: #3490dc;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+
+$primary: #553895;
+$secondary: #86469c;
+$success: #33d275;
+$info: #5cc4eb;
+$warning: #ffc95c;
+$danger: #ff6b79 ;
+$light: #e0e0e0 ;
+$dark: #343a40;
+
+$gradient-primary: linear-gradient(90deg, $secondary 0%, $primary 100%);
+
+// Alerts
+$alert-bg-level: 0;
+$alert-border-level: .125rem;
+$alert-color-level: -12;
+
+// Buttons
+$btn-padding-y: 0.84rem;
+$btn-padding-x: 2.14rem;
+$btn-font-size: .81rem;
+
+// Breadcrumb
+$breadcrumb-margin-bottom: 0px;
+$breadcrumb-divider-color: #ececec;
+$breadcrumb-active-color: #cacaca;
+
+// Links
+$link-color: #bbb;
+$link-hover-decoration: none;
+
+// Dropdown
+$dropdown-border-width: 0px;
+$dropdown-border-radius: 0px;
+
+// Card
+$card-border-width: 0px;
+$card-border-radius: 0px;
+
+// Navbars
+$navbar-light-color: #a4a4a4;

@@ -1,0 +1,44 @@
+.btn {
+    text-transform: uppercase;
+}
+.btn-rounded {
+    border-radius: 10em;
+}
+.btn-floating {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 1;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0;
+    width: 47px;
+    height: 47px;
+    i {
+        display: inline-block;
+        font-size: 1.25rem;
+        line-height: 47px;
+        text-align: center;
+        color: #fff;
+    }
+    &:before {
+        border-radius: 0;
+    }
+}
+.btn-floating.btn-sm {
+    width: 36px;
+    height: 36px;
+    i {
+        font-size: 1rem;
+        line-height: 34px;
+    }
+}
+.btn-floating.btn-lg {
+    width: 61px;
+    height: 61px;
+    i {
+        font-size: 1.625rem;
+        line-height: 61px;
+    }
+}

@@ -9,7 +9,9 @@
                     <div class="col-6 align-self-center teaser-right">
                             <h4><strong>{!! $title !!}</strong></h4>
                         @if(isset($subTitle))
-                            @include('includes.breadcrumb', ['title' => $subTitle])
+                            <span>
+                                @include('includes.breadcrumb', ['title' => $subTitle])
+                            </span>
                         @endif
                     </div>
                 </div>

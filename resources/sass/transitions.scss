@@ -1,0 +1,12 @@
+a {
+    transition: all .4s ease-in-out;
+}
+
+.box .card-body {
+    transition: all .4s ease-in-out;
+}
+
+.btn {
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}

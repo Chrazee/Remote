@@ -1,0 +1,32 @@
+.teaser {
+    background: $gradient-primary;
+    color: #fff;
+    padding: 10px;
+}
+
+.teaser-left {
+    border-right: 2px solid rgba(255,255,255,0.4);
+    text-align: right;
+
+    h1 {
+        margin-bottom: 0px;
+    }
+    h1 img {
+        width: 50px;
+    }
+}
+
+.teaser-right {
+    text-align: left;
+    color: rgba(255,255,255,0.4);
+
+    h4 {
+        color: #fff;
+        margin-bottom: 0px;
+    }
+    span {
+        display: inline-block;
+        color: rgba(255,255,255,0.4);
+        margin-top: 3px;
+    }
+}

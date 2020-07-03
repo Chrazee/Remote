@@ -1,0 +1,47 @@
+body {
+    background-image: url("../images/background.png");
+    background-attachment: fixed;
+    background-repeat: repeat;
+}
+
+#content {
+    padding-top: 20px;
+    padding-bottom:40px;
+    margin-bottom: 40px;
+}
+
+nav {
+    height: 60px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.card {
+    font-weight: 400;
+}
+
+.bg-gradient-primary {
+    background: $gradient-primary;
+}
+
+.view {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+}
+
+.box-devices {
+    border-radius: 0px;
+    border-bottom: 1px solid  #ececec;
+    background-color: #fdfdfd;
+}
+
+.form {
+    position: relative;
+}
+
+ul.errors {
+    margin-bottom: 0px;
+}

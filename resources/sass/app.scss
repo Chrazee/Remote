@@ -1,1 +1,36 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Font Awesome
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+// Animate
+@import '~animate.css/animate';
+
+// Site
+@import 'site';
+
+// Othet components
+@import "navbarBottom";
+@import 'box';
+@import 'teaser';
+@import 'preloader';
+@import "switchButton";
+@import "cardCascade";
+@import "checkbox";
+@import "moduleOverplay";
+@import "alert";
+@import 'buttons';
+
+@import 'transitions';
+@import 'shadows';
+

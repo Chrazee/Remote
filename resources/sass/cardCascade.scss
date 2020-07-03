@@ -1,0 +1,64 @@
+.card.card-cascade {
+    .view.view-cascade {
+        border-radius: .25rem;
+        -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+        box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    }
+    .view.view-cascade.gradient-card-header {
+        padding: 1rem 1rem;
+        color: #fff;
+        text-align: center;
+    }
+}
+.view.view-cascade {
+    a {
+        color: #fff;
+        &:hover {
+            color: #fff;
+        }
+        &:focus {
+            color: #fff;
+        }
+        &:active {
+            color: #fff;
+        }
+    }
+}
+.card.card-cascade.narrower {
+    margin-top: 1.25rem;
+    .view.view-cascade {
+        margin-top: -1.25rem;
+        margin-right: 4%;
+        margin-left: 4%;
+    }
+}
+.card.card-cascade.wider {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    .view.view-cascade {
+        z-index: 2;
+    }
+    .card-body.card-body-cascade {
+        z-index: 1;
+        margin-right: 4%;
+        margin-left: 4%;
+        background: #fff;
+        border-radius: 0 0 .25rem .25rem;
+        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+        .card-footer {
+            margin-right: -1.25rem;
+            margin-left: -1.25rem;
+        }
+    }
+}
+.card.card-cascade.wider.reverse {
+    .card-body.card-body-cascade {
+        z-index: 3;
+        margin-top: -1rem;
+        border-radius: .25rem;
+        -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    }
+}

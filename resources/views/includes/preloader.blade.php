@@ -1,5 +1,5 @@
 <div class="preloader-container d-none">
-    <img class="preloader-logo" src="{{asset('assets/imgs/remote.svg')}}">
+    <img class="preloader-logo" src="{{asset('images/logo_black.svg')}}">
     <div class="preloader-wrapper active">
         <div class="spinner-layer spinner-default-only">
             <div class="circle-clipper left">

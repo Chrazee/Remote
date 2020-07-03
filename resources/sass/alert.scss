@@ -1,0 +1,16 @@
+.alert-header {
+    display: flex;
+    height: 100%;
+    font-size: 1.2em;
+    clear: both;
+    margin-bottom: 5px;
+
+    .icon {
+        font-size: 1.5em;
+        margin-right: 10px;
+    }
+
+    .icon i {
+        color: #fff !important;
+    }
+}

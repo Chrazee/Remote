@@ -1,0 +1,4 @@
+.custom-switch .custom-control-input:checked~.custom-control-label::before{
+    background-color: $secondary;
+    border-color: $primary;
+}
