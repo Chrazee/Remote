@@ -27,7 +27,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'parent_id' => '2',
             'user_id' => '1',
-            'name' => 'Server Room'
+            'name' => 'Room 1'
         ]);
     }
 }

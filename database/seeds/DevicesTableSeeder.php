@@ -23,13 +23,13 @@ class DevicesTableSeeder extends Seeder
         ]);
 
         Device::create([
-            'name' => 'Rack Cabinet inner thermometer',
+            'name' => 'Thermometer',
             'group_id' => '3',
             'user_id' => '1',
             'type_id' => '2',
             'module_id' => '2',
             'protocol_id' => '1',
-            'address' => '192.168.84.10'
+            'address' => 'device_thermometer'
         ]);
     }
 }
